@@ -1,0 +1,60 @@
+.form { display: flex; flex-direction: column; gap: 20px; }
+.serviceGroup { border: none; margin: 0; padding: 0; }
+.legend { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; color: var(--color-slate); margin-bottom: 8px; padding: 0; }
+.serviceTabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.serviceTab {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  background: var(--color-paper-raised);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+}
+.serviceTab[data-active='true'] { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.serviceTab:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.field, .fieldWide { display: flex; flex-direction: column; gap: 6px; }
+.fieldWide { grid-column: 1 / -1; }
+.labelText { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; color: var(--color-ink-soft); }
+
+.field input, .field textarea, .fieldWide textarea {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
+}
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 1px; }
+.field input[aria-invalid='true'] { border-color: #b3413a; }
+
+.error { font-size: 0.75rem; color: #b3413a; }
+.advanceError {
+  font-size: 0.8125rem;
+  color: #b3413a;
+  background: rgba(179, 65, 58, 0.08);
+  border: 1px solid rgba(179, 65, 58, 0.24);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 0;
+}
+
+.viaRow { display: flex; gap: 8px; }
+.viaRow input { flex: 1; }
+.viaAdd { padding: 0 14px; border-radius: 6px; border: 1px solid var(--color-line); background: var(--color-paper-raised); color: var(--color-ink); font-size: 0.8125rem; cursor: pointer; }
+.viaList { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.viaList li { display: flex; align-items: center; gap: 6px; background: var(--color-brass-soft); border-radius: 999px; padding: 4px 8px 4px 12px; font-size: 0.8125rem; color: var(--color-ink); }
+.viaList button { background: none; border: none; cursor: pointer; color: var(--color-ink-soft); font-size: 1rem; line-height: 1; }
+
+.submit { align-self: flex-start; padding: 12px 24px; border-radius: 6px; border: none; background: var(--color-ink); color: var(--color-paper); font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; cursor: pointer; }
+.submit:hover { background: var(--color-ink-soft); }
+.submit:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}

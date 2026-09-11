@@ -1,0 +1,23 @@
+.wrapper {
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 24px;
+  background: var(--color-paper-raised);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.status { font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-ink); margin: 0; }
+.statusError { font-family: var(--font-body); font-size: 0.9375rem; color: #b3413a; margin: 0; }
+.retryButton {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--color-line);
+  background: none;
+  color: var(--color-ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.retryButton:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }

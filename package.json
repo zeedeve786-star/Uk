@@ -1,0 +1,34 @@
+{
+  "name": "uk-airport-taxi",
+  "version": "1.0.0",
+  "description": "A modular UK airport taxi and private transport booking platform with airport transfers, railway, cruise, events, vehicle selection, fares, payments, customer bookings and admin operations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev8-droid/Uk-Airport-Taxi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev8-droid/Uk-Airport-Taxi/issues"
+  },
+  "homepage": "https://github.com/dev8-droid/Uk-Airport-Taxi#readme",
+  "dependencies": {
+    "lucide-react": "^1.44.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

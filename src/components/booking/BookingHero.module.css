@@ -1,0 +1,47 @@
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  gap: 40px;
+  align-items: start;
+}
+
+.intro { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; }
+.heading { font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--color-ink); margin: 0; line-height: 1.15; max-width: 22ch; }
+.subheading { font-family: var(--font-body); font-size: 1rem; color: var(--color-slate); margin: 0; max-width: 46ch; }
+
+.trustList { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.trustList li { font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-soft); padding-left: 18px; position: relative; }
+.trustList li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-brass);
+}
+
+.ctaRow { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+.secondaryCta {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brass);
+  padding-bottom: 2px;
+}
+.secondaryCta:hover { color: var(--color-brass); }
+.secondaryCta:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; }
+
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 32px 16px; }
+}

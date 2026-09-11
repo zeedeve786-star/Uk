@@ -1,0 +1,23 @@
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+}
+
+.logoMark {
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 640px) {
+  .logoImg,
+  .logoMark {
+    height: 34px;
+    width: 34px;
+  }
+}

@@ -1,0 +1,19 @@
+:root {
+  --color-ink: #10192b;
+  --color-ink-soft: #34405a;
+  --color-paper: #faf7f2;
+  --color-paper-raised: #ffffff;
+  --color-brass: #a9793a;
+  --color-brass-soft: #f2e6d2;
+  --color-slate: #5b6472;
+  --color-line: rgba(16, 25, 43, 0.1);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --ticker-height: 40px;
+
+  --z-header: 40;
+  --z-ticker: 30;
+  --z-mobile-nav: 50;
+}

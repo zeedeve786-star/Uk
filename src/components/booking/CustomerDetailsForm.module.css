@@ -1,0 +1,28 @@
+.form { display: flex; flex-direction: column; gap: 20px; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.field, .fieldWide { display: flex; flex-direction: column; gap: 6px; }
+.fieldWide { grid-column: 1 / -1; }
+.labelText { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; color: var(--color-ink-soft); }
+.field input, .fieldWide textarea {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  padding: 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  background: var(--color-paper-raised);
+  color: var(--color-ink);
+}
+.field input:focus-visible, .fieldWide textarea:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 1px; }
+.field input[aria-invalid='true'] { border-color: #b3413a; }
+.error { font-size: 0.75rem; color: #b3413a; }
+
+.actions { display: flex; gap: 12px; }
+.backButton, .submit { padding: 12px 24px; border-radius: 6px; font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; cursor: pointer; }
+.backButton { background: none; border: 1px solid var(--color-line); color: var(--color-ink); }
+.submit { border: none; background: var(--color-ink); color: var(--color-paper); }
+.submit:hover { background: var(--color-ink-soft); }
+.backButton:focus-visible, .submit:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}

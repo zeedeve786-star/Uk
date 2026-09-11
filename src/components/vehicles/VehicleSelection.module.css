@@ -1,0 +1,17 @@
+.wrapper { display: flex; flex-direction: column; gap: 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+.continueButton {
+  align-self: flex-start;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.continueButton:disabled { background: var(--color-line); color: var(--color-slate); cursor: not-allowed; }
+.continueButton:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }

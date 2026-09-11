@@ -1,0 +1,24 @@
+.phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.phone:hover {
+  color: var(--color-brass);
+}
+
+.phone:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.icon {
+  color: var(--color-brass);
+}

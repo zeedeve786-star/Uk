@@ -1,0 +1,6 @@
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+.quoteSection { background: var(--color-paper); padding: 48px 24px; }
+.quoteInner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+.quoteHeading { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-ink); margin: 0; }
+.quoteBody { font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-slate); margin: 0; }
