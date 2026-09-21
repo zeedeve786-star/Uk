@@ -1,0 +1,18 @@
+.page { display: flex; flex-direction: column; }
+.notFound { max-width: 1200px; margin: 0 auto; padding: 48px 24px; color: var(--color-slate); }
+
+.hero { max-width: 1200px; margin: 0 auto; padding: 8px 24px 32px; display: flex; flex-direction: column; gap: 12px; }
+.heading { font-family: var(--font-display); font-size: 2rem; color: var(--color-ink); margin: 0; }
+.body { font-family: var(--font-body); font-size: 1rem; color: var(--color-slate); margin: 0; max-width: 60ch; }
+.actions { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+.primaryCta, .secondaryCta { font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; text-decoration: none; padding: 10px 20px; border-radius: 6px; }
+.primaryCta { background: var(--color-ink); color: var(--color-paper); }
+.primaryCta:hover { background: var(--color-ink-soft); }
+.secondaryCta { border: 1px solid var(--color-line); color: var(--color-ink); }
+.secondaryCta:hover { border-color: var(--color-brass); color: var(--color-brass); }
+.primaryCta:focus-visible, .secondaryCta:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+
+.entries { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+.entriesHeading { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-ink); margin: 0 0 4px; }
+.entriesNote { font-size: 0.75rem; color: var(--color-slate); margin: 0 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }

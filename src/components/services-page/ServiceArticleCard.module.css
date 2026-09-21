@@ -1,0 +1,76 @@
+
+.card {
+  position: relative;
+  overflow: hidden;
+  min-height: 185px;
+  box-sizing: border-box;
+  border: 1px solid rgba(86, 101, 156, .10);
+  border-radius: 15px;
+  padding: 18px;
+  background: #fafbfe;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  right: -35px;
+  bottom: -42px;
+  border-radius: 50%;
+  background: rgba(221, 142, 181, .08);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(91, 105, 170, .20);
+  box-shadow: 0 13px 28px rgba(43, 53, 91, .065);
+}
+
+.status {
+  font-size: .65rem;
+  color: #7380b6;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: -.015em;
+  color: #3b455e;
+  margin: 0;
+}
+
+.excerpt {
+  font-size: .78rem;
+  line-height: 1.6;
+  color: #7f8799;
+  margin: 0;
+}
+
+.link {
+  position: relative;
+  z-index: 1;
+  font-size: .76rem;
+  font-weight: 700;
+  color: #6271b0;
+  text-decoration: none;
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: 2px solid #7180bc;
+  outline-offset: 2px;
+}

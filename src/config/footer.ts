@@ -1,23 +1,50 @@
-export const footerLinks = {
-  services: [
-    { label: 'Airport Taxi Services', href: '#services' },
-    { label: 'Railway Services', href: '#services' },
-    { label: 'Cruise Services', href: '#services' },
-    { label: 'Events Services', href: '#services' },
-  ],
-  company: [
-    { label: 'Home', href: '#' },
-    { label: 'About', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Vehicles', href: '#vehicles' },
-    { label: 'Offers', href: '#offers' },
-    { label: 'FAQs', href: '#support' },
-    { label: 'Contact', href: '#contact' },
-  ],
-  legal: [
-    { label: 'Terms', href: '#terms' },
-    { label: 'Privacy', href: '#privacy' },
-    { label: 'Cookie', href: '#cookie' },
-    { label: 'Refund', href: '#refund' },
+export interface FooterLink {
+  label: string;
+  href: string;
+}
+
+export interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+export const footerColumns: FooterColumn[] = [
+  {
+    title: 'Navigation',
+    links: [
+      { label: 'Home', href: '#home' },
+      { label: 'Services', href: '#services-airport' },
+      { label: 'Vehicles', href: '#vehicles' },
+      { label: 'Areas', href: '#areas' },
+      { label: 'About', href: '#about' },
+    ],
+  },
+  {
+    title: 'Customer',
+    links: [
+      { label: 'Support', href: '#support' },
+      { label: 'Request a quote', href: '#quote' },
+      { label: 'Booking information', href: '#home' },
+      { label: 'FAQs', href: '#faqs' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Terms', href: '#terms' },
+      { label: 'Privacy', href: '#privacy' },
+      { label: 'Cookie Policy', href: '#cookie-policy' },
+      { label: 'Refund Policy', href: '#refund-policy' },
+    ],
+  },
+];
+
+export const footerContact = {
+  phoneDisplay: '+44 0000 000000',
+  phoneTel: '+440000000000',
+  email: 'info@yourtransportcompany.example',
+  social: [
+    { label: 'Facebook', href: '#' },
+    { label: 'Instagram', href: '#' },
   ],
 };

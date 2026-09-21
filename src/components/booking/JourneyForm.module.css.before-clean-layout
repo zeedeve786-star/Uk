@@ -1,0 +1,462 @@
+.form {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #172033;
+}
+
+.formHeader {
+  padding: 22px 30px 16px;
+  border: 0;
+  background: #ffffff;
+}
+
+.formHeaderTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: #4169c8;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.formHeader h3 {
+  margin: 0;
+  color: #15213b;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -.4px;
+}
+
+.quickBadge {
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #3157ae;
+  background: #eef4ff;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.formHeader p {
+  margin: 6px 0 0;
+  color: #7a8495;
+  font-size: 12px;
+}
+
+.serviceGroup {
+  margin: 0;
+  padding: 8px 30px 19px;
+  border: 0;
+}
+
+.legend {
+  margin-bottom: 9px;
+  color: #7d8797;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.serviceTabs {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.serviceTab {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 42px;
+  padding: 0 10px;
+  border: 1px solid #e1e6ee;
+  border-radius: 10px;
+  color: #697588;
+  background: #ffffff;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: .16s ease;
+}
+
+.serviceTab:hover {
+  border-color: #9bb3e9;
+  color: #3157ae;
+}
+
+.serviceTab[data-active="true"] {
+  border-color: #4169c8;
+  color: #ffffff;
+  background: #4169c8;
+  box-shadow: 0 5px 12px rgba(65,105,200,.18);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 0 30px 25px;
+}
+
+.routeSection,
+.detailsSection {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.routeSection {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.routeSection .sectionHeading {
+  grid-column: 1 / -1;
+}
+
+.detailsSection {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(0, 1.25fr)
+    minmax(0, .9fr)
+    minmax(0, .9fr);
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.detailsSection .sectionHeading {
+  grid-column: 1 / -1;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0 0 10px;
+}
+
+.sectionHeading strong {
+  color: #26334c;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.sectionHeading span {
+  color: #a1a9b6;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.routeField {
+  position: relative;
+  display: block;
+  min-width: 0;
+  margin: 0;
+}
+
+.routeField::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 39px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #3b82f6;
+  border-radius: 50%;
+  z-index: 2;
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.routeField:last-child::before {
+  border: 0;
+  border-radius: 3px 3px 7px 7px;
+  background: #ec4899;
+  width: 10px;
+  height: 10px;
+  left: 14px;
+  top: 38px;
+}
+
+.routeField:not(:last-child)::after {
+  display: none;
+}
+
+.field,
+.fieldWide {
+  min-width: 0;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.labelText {
+  display: block;
+  margin: 0 0 7px;
+  color: #687386;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 850;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field textarea,
+.fieldWide input,
+.fieldWide textarea,
+.routeField input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #dce2ea;
+  border-radius: 11px;
+  outline: none;
+  color: #1f2b40;
+  background: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  pointer-events: auto;
+}
+
+.field input,
+.fieldWide input {
+  height: 52px;
+  min-height: 52px;
+  padding: 0 14px;
+}
+
+.routeField input {
+  height: 58px;
+  min-height: 58px;
+  padding: 0 15px 0 42px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.field textarea,
+.fieldWide textarea {
+  min-height: 82px;
+  padding: 11px 14px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.fieldWide input:focus,
+.fieldWide textarea:focus,
+.routeField input:focus {
+  border-color: #6283d1;
+  box-shadow: 0 0 0 3px rgba(65,105,200,.08);
+}
+
+.viaRow {
+  display: flex;
+  gap: 9px;
+  width: 100%;
+}
+
+.viaRow input {
+  flex: 1;
+  min-width: 0;
+}
+
+.error {
+  display: block;
+  margin-top: 5px;
+  color: #d6455d;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+@media (min-width: 1200px) {
+  .formHeader {
+    padding-left: 34px;
+    padding-right: 34px;
+  }
+
+  .serviceGroup,
+  .grid {
+    padding-left: 34px;
+    padding-right: 34px;
+  }
+
+  .routeSection {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .detailsSection {
+    grid-template-columns:
+      minmax(0, 1.35fr)
+      minmax(0, 1.35fr)
+      minmax(0, .95fr)
+      minmax(0, .95fr);
+    gap: 20px;
+  }
+
+  .field input,
+  .fieldWide input {
+    height: 54px;
+  }
+
+  .routeField input {
+    height: 60px;
+  }
+}
+
+@media (max-width: 850px) {
+  .routeSection {
+    grid-template-columns: 1fr;
+  }
+
+  .routeSection .sectionHeading {
+    grid-column: 1;
+  }
+
+  .detailsSection {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detailsSection .sectionHeading,
+  .detailsSection .fieldWide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .formHeader {
+    padding: 18px 18px 14px;
+  }
+
+  .serviceGroup,
+  .grid {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .formHeaderTop {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .serviceTabs {
+    flex-wrap: wrap;
+  }
+
+  .serviceTab {
+    flex: 1 1 calc(50% - 4px);
+  }
+
+  .routeSection,
+  .detailsSection {
+    grid-template-columns: 1fr;
+  }
+
+  .routeSection .sectionHeading,
+  .detailsSection .sectionHeading,
+  .detailsSection .fieldWide {
+    grid-column: 1;
+  }
+
+  .detailsSection {
+    margin-top: 22px;
+  }
+}
+
+/* =========================================================
+   CLEAR FIELD SEPARATION
+   ========================================================= */
+
+.detailsSection {
+  column-gap: 24px !important;
+  row-gap: 20px !important;
+}
+
+/* First row — two clearly separated wide fields */
+.detailsSection .field:nth-of-type(1),
+.detailsSection .field:nth-of-type(2) {
+  grid-column: span 3 !important;
+}
+
+/* Second row — three clearly separated fields */
+.detailsSection .field:nth-of-type(3),
+.detailsSection .field:nth-of-type(4),
+.detailsSection .field:nth-of-type(5) {
+  grid-column: span 2 !important;
+}
+
+/* Give every field its own visual space */
+.detailsSection .field {
+  padding: 0 !important;
+}
+
+/* Inputs don't touch each other */
+.detailsSection .field input {
+  width: 100% !important;
+}
+
+/* Full-width Via row gets its own breathing room */
+.detailsSection .fieldWide {
+  margin-top: 2px !important;
+}
+
+/* Larger desktop separation */
+@media (min-width: 1200px) {
+  .detailsSection {
+    column-gap: 28px !important;
+    row-gap: 22px !important;
+  }
+}
+
+/* Travel Date + Travel Time — same horizontal row */
+.detailsSection .field:nth-of-type(1),
+.detailsSection .field:nth-of-type(2) {
+  grid-column: span 3 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.detailsSection .field:nth-of-type(1) input,
+.detailsSection .field:nth-of-type(2) input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Keep a clear gap between Date and Time */
+.detailsSection {
+  column-gap: 24px !important;
+  row-gap: 20px !important;
+}
+
+@media (max-width: 850px) {
+  .detailsSection .field:nth-of-type(1),
+  .detailsSection .field:nth-of-type(2) {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .detailsSection .field:nth-of-type(1),
+  .detailsSection .field:nth-of-type(2) {
+    grid-column: 1 !important;
+  }
+}

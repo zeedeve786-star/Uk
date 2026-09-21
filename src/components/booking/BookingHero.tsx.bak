@@ -1,0 +1,147 @@
+import { BookingWidget } from './BookingWidget';
+import styles from './BookingHero.module.css';
+
+export function BookingHero() {
+  return (
+    <section id="home" className={styles.hero} aria-label="Book your journey">
+      <div className={styles.heroInner}>
+        <div className={styles.leftColumn}>
+          <div className={styles.intro}>
+            <span className={styles.eyebrow}>
+              <i />
+              UK PRIVATE TRANSPORT
+            </span>
+
+            <h1>
+              Travel with
+              <span>confidence.</span>
+            </h1>
+
+            <p>
+              Professional private transfers for airports, railway stations,
+              cruises and events. Your journey, vehicle and fare are made
+              clear before you confirm.
+            </p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <div className={styles.cardTop}>
+              <span className={styles.cardLabel}>WHY TRAVEL WITH US</span>
+              <span className={styles.cardNumber}>01</span>
+            </div>
+
+            <h2>
+              A smoother journey
+              <span>from the start.</span>
+            </h2>
+
+            <p>
+              Tell us where you're going and we'll guide you through the
+              journey, vehicle and booking process in one simple flow.
+            </p>
+
+            <div className={styles.benefitList}>
+              <div className={styles.benefit}>
+                <span>✓</span>
+                <div>
+                  <strong>Clear journey planning</strong>
+                  <small>Pickup, destination and stops in one place</small>
+                </div>
+              </div>
+
+              <div className={styles.benefit}>
+                <span>✓</span>
+                <div>
+                  <strong>Vehicle matched to you</strong>
+                  <small>Choose around passengers and luggage</small>
+                </div>
+              </div>
+
+              <div className={styles.benefit}>
+                <span>✓</span>
+                <div>
+                  <strong>Fare before confirmation</strong>
+                  <small>Know the price before completing your booking</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.serviceCard}>
+            <div className={styles.cardTop}>
+              <span className={styles.cardLabel}>BUILT FOR EVERY JOURNEY</span>
+              <span className={styles.cardNumber}>02</span>
+            </div>
+
+            <div className={styles.serviceHeading}>
+              <div>
+                <h2>One booking.</h2>
+                <strong>Many destinations.</strong>
+              </div>
+
+              <div className={styles.routeGraphic} aria-hidden="true">
+                <span />
+                <b />
+                <i>◆</i>
+                <b />
+                <span />
+              </div>
+            </div>
+
+            <div className={styles.serviceGrid}>
+              <div>
+                <span>✈</span>
+                <strong>Airports</strong>
+              </div>
+              <div>
+                <span>↗</span>
+                <strong>Railway</strong>
+              </div>
+              <div>
+                <span>⚓</span>
+                <strong>Cruise</strong>
+              </div>
+              <div>
+                <span>◆</span>
+                <strong>Events</strong>
+              </div>
+            </div>
+
+            <div className={styles.serviceFooter}>
+              <span>Private transfers</span>
+              <span>•</span>
+              <span>Professional service</span>
+              <span>•</span>
+              <span>England</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.rightColumn}>
+          <div className={styles.quoteHeading}>
+            <div>
+              <span>INSTANT ONLINE QUOTE</span>
+              <h2>Book your journey</h2>
+              <p>Enter your journey details to get started.</p>
+            </div>
+
+            <div className={styles.liveBadge}>
+              <i />
+              ONLINE
+            </div>
+          </div>
+
+          <div className={styles.widgetShell}>
+            <BookingWidget />
+          </div>
+
+          <div className={styles.quoteFooter}>
+            <span>✓ Clear pricing</span>
+            <span>✓ Secure payment</span>
+            <span>✓ Human support</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

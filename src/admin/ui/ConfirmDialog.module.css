@@ -1,0 +1,2 @@
+.message { font-family: var(--font-body); font-size: 0.875rem; color: var(--color-ink-soft); margin: 0 0 16px; }
+.actions { display: flex; justify-content: flex-end; gap: 10px; }

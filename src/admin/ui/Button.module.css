@@ -1,0 +1,17 @@
+.button {
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.button:disabled { opacity: 0.5; cursor: not-allowed; }
+.button:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+.primary { background: var(--color-ink); color: var(--color-paper); }
+.primary:hover:not(:disabled) { background: var(--color-ink-soft); }
+.secondary { background: none; border-color: var(--color-line); color: var(--color-ink); }
+.secondary:hover:not(:disabled) { border-color: var(--color-brass); color: var(--color-brass); }
+.danger { background: #b3413a; color: #fff; }
+.danger:hover:not(:disabled) { background: #96352f; }

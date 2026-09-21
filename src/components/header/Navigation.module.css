@@ -1,5 +1,4 @@
 .nav { display: flex; }
-
 .list {
   display: flex;
   align-items: center;
@@ -8,7 +7,6 @@
   margin: 0;
   padding: 0;
 }
-
 .link {
   font-family: var(--font-body);
   font-size: 0.9375rem;
@@ -16,14 +14,8 @@
   color: var(--color-ink);
   text-decoration: none;
 }
-
 .link:hover { color: var(--color-brass); }
-
-.link:focus-visible {
-  outline: 2px solid var(--color-brass);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
+.link:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; border-radius: 2px; }
 
 @media (max-width: 1024px) {
   .list { gap: 18px; }

@@ -1,0 +1,6 @@
+.heading { margin: 0 0 24px; }
+.card { max-width: 900px; }
+.form { display: grid; gap: 18px; }
+.actions { display: flex; gap: 12px; align-items: center; }
+.list { display: grid; gap: 12px; margin-top: 24px; }
+.item { display: flex; justify-content: space-between; gap: 16px; align-items: center; }

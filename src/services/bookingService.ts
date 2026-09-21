@@ -1,23 +1,52 @@
-import type { BookingRecord, CustomerDetails, JourneyDetails } from '../models/booking';
-import type { FareResult, VehicleCategoryId } from '../models/vehicle';
-import type { PaymentResult } from '../models/payment';
+import type { CustomerDetails, JourneyDetails, BookingRecord } from '../models/booking';
+import type { VehicleCategoryId } from '../models/vehicle';
+import { apiPost } from './httpClient';
+
+interface BackendBookingResponse {
+  bookingReference: string;
+  vehicleCategory: VehicleCategoryId;
+  pricing: {
+    originalFare: number;
+    discountCode: string | null;
+    discountAmount: number;
+    finalFare: number;
+    currency: 'GBP';
+  };
+  createdAt: string;
+}
 
 export async function createBookingRecord(
   journey: JourneyDetails,
   vehicleId: VehicleCategoryId,
-  fare: FareResult,
   customer: CustomerDetails,
-  payment: PaymentResult,
 ): Promise<BookingRecord> {
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  const response = await apiPost<BackendBookingResponse>('/bookings', {
+    pickup: journey.pickup,
+    destination: journey.dropoff,
+    extraStops: journey.viaStops,
+    journeyDate: journey.date,
+    journeyTime: journey.time,
+    customerName: customer.fullName,
+    customerEmail: customer.email,
+    customerPhone: customer.phone,
+    passengerCount: customer.passengerCount,
+    vehicleCategory: vehicleId,
+    distanceMiles: journey.distanceMiles,
+  });
 
   return {
-    reference: `BK-${Math.random().toString(36).slice(2, 8).toUpperCase()}`,
+    reference: response.bookingReference,
     journey,
-    vehicleId,
-    fare,
+    vehicleId: response.vehicleCategory,
+    fare: {
+      amount: response.pricing.originalFare,
+      currency: response.pricing.currency,
+      discountAmount: response.pricing.discountAmount || undefined,
+      finalAmount: response.pricing.finalFare,
+      source: 'fare-engine',
+    },
     customer,
-    payment,
-    createdAt: new Date().toISOString(),
+    payment: { status: 'pending', provider: 'stripe' },
+    createdAt: response.createdAt,
   };
 }

@@ -1,0 +1,627 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 790px;
+  overflow: hidden;
+  background: #edf2f8;
+}
+
+.heroBackdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(232,238,247,.96) 0%,
+      rgba(232,238,247,.88) 42%,
+      rgba(239,243,249,.78) 100%
+    );
+}
+
+.backdropTerminal {
+  position: absolute;
+  right: -5%;
+  top: -8%;
+  width: 72%;
+  height: 112%;
+  opacity: .11;
+  transform: skewX(-8deg);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 120px,
+      #64728d 121px 123px,
+      transparent 124px 245px
+    ),
+    linear-gradient(
+      168deg,
+      transparent 0 34%,
+      #687895 35% 36%,
+      transparent 37%
+    );
+}
+
+.backdropLight {
+  position: absolute;
+  right: 9%;
+  top: 4%;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(91,103,240,.13),
+    rgba(91,103,240,.035) 44%,
+    transparent 72%
+  );
+}
+
+.backdropRoad {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -185px;
+  height: 310px;
+  opacity: .13;
+  transform: perspective(650px) rotateX(58deg);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 220px,
+      rgba(91,103,240,.72) 221px 224px,
+      transparent 225px 440px
+    ),
+    #64728a;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  width: min(1500px, calc(100% - 48px));
+  min-height: 790px;
+  margin: 0 auto;
+  padding: 42px 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(430px, .88fr) minmax(650px, 1.12fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.leftColumn {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.intro {
+  max-width: 680px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 15px;
+  color: #5864ed;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .18em;
+}
+
+.eyebrow i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5864ed, #c95bea);
+  box-shadow: 0 0 0 5px rgba(88,100,237,.10);
+}
+
+.intro h1 {
+  margin: 0;
+  max-width: 680px;
+  color: #172033;
+  font-size: clamp(52px, 5.1vw, 78px);
+  line-height: .93;
+  letter-spacing: -.06em;
+  font-weight: 900;
+}
+
+.intro h1 span {
+  display: block;
+  color: #5864ed;
+}
+
+.intro p {
+  max-width: 590px;
+  margin: 20px 0 0;
+  color: #667187;
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.mainIllustration {
+  position: relative;
+  height: 360px;
+  margin-top: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.88);
+  border-radius: 30px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(215,226,245,.72) 0%,
+      rgba(244,247,251,.84) 62%,
+      rgba(219,226,238,.9) 100%
+    );
+  box-shadow:
+    0 28px 70px rgba(37,49,82,.12),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+.illustrationSky {
+  position: absolute;
+  inset: 0;
+}
+
+.cloudA,
+.cloudB {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,.82);
+  filter: blur(.2px);
+}
+
+.cloudA {
+  width: 175px;
+  height: 38px;
+  left: 7%;
+  top: 46px;
+}
+
+.cloudB {
+  width: 210px;
+  height: 43px;
+  right: 13%;
+  top: 69px;
+}
+
+.sunGlow {
+  position: absolute;
+  right: 15%;
+  top: 15px;
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,.82),
+    rgba(255,255,255,0) 70%
+  );
+}
+
+.terminal {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 82px;
+  height: 125px;
+}
+
+.terminalRoof {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: 0;
+  height: 14px;
+  border-radius: 10px;
+  background: #7786a0;
+  opacity: .67;
+}
+
+.terminalGlass {
+  position: absolute;
+  inset: 14px 0 0;
+  display: flex;
+  gap: 8px;
+  padding: 9px;
+  background: rgba(104,121,151,.15);
+  border: 1px solid rgba(104,121,151,.24);
+}
+
+.terminalGlass span {
+  flex: 1;
+  border: 1px solid rgba(255,255,255,.7);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.5),
+    rgba(104,121,151,.08)
+  );
+}
+
+.terminalSign {
+  position: absolute;
+  top: 45px;
+  left: 44%;
+  padding: 6px 11px;
+  border-radius: 5px;
+  background: #5864ed;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: .15em;
+}
+
+.runway {
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: -96px;
+  height: 190px;
+  transform: perspective(380px) rotateX(58deg);
+  background: #aab5c6;
+  opacity: .72;
+}
+
+.runwayCenter {
+  position: absolute;
+  left: 48%;
+  top: 0;
+  width: 7%;
+  height: 190px;
+  border-left: 4px dashed rgba(255,255,255,.86);
+}
+
+.plane {
+  position: absolute;
+  left: 31%;
+  top: 54px;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: rgba(255,255,255,.96);
+  color: #5864ed;
+  box-shadow: 0 13px 28px rgba(45,57,94,.14);
+  font-size: 23px;
+}
+
+.taxi {
+  position: absolute;
+  right: 10%;
+  bottom: 42px;
+  width: 155px;
+  height: 75px;
+}
+
+.taxiRoof {
+  position: absolute;
+  left: 36px;
+  bottom: 38px;
+  width: 79px;
+  height: 30px;
+  border-radius: 34px 34px 6px 6px;
+  background: #4b5acb;
+}
+
+.taxiBody {
+  position: absolute;
+  left: 5px;
+  bottom: 8px;
+  width: 143px;
+  height: 39px;
+  border-radius: 17px 22px 11px 11px;
+  background: linear-gradient(135deg, #5864ed, #777fee);
+  box-shadow: 0 15px 28px rgba(65,78,160,.22);
+}
+
+.taxiBody span {
+  position: absolute;
+  left: 43px;
+  top: 7px;
+  width: 54px;
+  height: 14px;
+  border-radius: 5px;
+  background: rgba(220,230,250,.74);
+}
+
+.taxi i {
+  position: absolute;
+  bottom: 0;
+  width: 19px;
+  height: 19px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #202a41;
+}
+
+.taxi i:nth-of-type(1) {
+  left: 22px;
+}
+
+.taxi i:nth-of-type(2) {
+  right: 14px;
+}
+
+.illustrationCaption {
+  position: absolute;
+  left: 25px;
+  bottom: 28px;
+  display: grid;
+  gap: 4px;
+}
+
+.illustrationCaption strong {
+  color: #34405a;
+  font-size: 10px;
+  letter-spacing: .14em;
+}
+
+.illustrationCaption span {
+  color: #7b8598;
+  font-size: 10px;
+}
+
+.routeBadge {
+  position: absolute;
+  right: 24px;
+  top: 23px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255,255,255,.82);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 8px 22px rgba(46,58,92,.08);
+  backdrop-filter: blur(8px);
+}
+
+.routePoint {
+  color: #59657b;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+.routeBadge b {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #5864ed;
+}
+
+.routeLine {
+  width: 34px;
+  height: 1px;
+  background: #9aa4b6;
+}
+
+.visualStat {
+  position: absolute;
+  left: 25px;
+  bottom: 87px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 11px;
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 8px 20px rgba(46,58,92,.07);
+  backdrop-filter: blur(7px);
+}
+
+.visualStat strong {
+  color: #5864ed;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.visualStat span {
+  color: #59657b;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.rightColumn {
+  min-width: 0;
+  width: 100%;
+}
+
+.bookingPanel {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(218,225,237,.96);
+  border-radius: 26px;
+  background: rgba(255,255,255,.985);
+  box-shadow:
+    0 30px 80px rgba(31,43,75,.15),
+    0 4px 15px rgba(31,43,75,.05);
+}
+
+.bookingHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 25px 29px 21px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.bookingHeader > div:first-child {
+  min-width: 0;
+}
+
+.bookingHeader span {
+  display: block;
+  margin-bottom: 6px;
+  color: #5864ed;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: .16em;
+}
+
+.bookingHeader h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 31px;
+  line-height: 1.05;
+  letter-spacing: -.045em;
+  font-weight: 900;
+}
+
+.bookingHeader p {
+  margin: 7px 0 0;
+  color: #7a8497;
+  font-size: 12px;
+}
+
+.online {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  margin: 0 !important;
+  padding: 8px 11px;
+  border: 1px solid #e3e7f0;
+  border-radius: 999px;
+  background: #fafbfc;
+  color: #687287 !important;
+  font-size: 9px !important;
+  letter-spacing: .1em;
+}
+
+.online i {
+  width: 7px;
+  height: 7px;
+  margin: 0;
+  border-radius: 50%;
+  background: #35b779;
+}
+
+.widgetArea {
+  width: 100%;
+}
+
+.bookingFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 14px 20px;
+  border-top: 1px solid #edf0f5;
+  background: #fafbfc;
+  color: #7d879a;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+@media (max-width: 1150px) {
+  .heroInner {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding: 40px 0;
+  }
+
+  .leftColumn {
+    max-width: none;
+  }
+
+  .rightColumn {
+    width: 100%;
+  }
+
+  .mainIllustration {
+    height: 330px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .heroInner {
+    width: calc(100% - 22px);
+    min-height: auto;
+    padding: 25px 0;
+    gap: 28px;
+  }
+
+  .intro h1 {
+    font-size: 44px;
+  }
+
+  .intro p {
+    font-size: 14px;
+  }
+
+  .mainIllustration {
+    height: 255px;
+    margin-top: 24px;
+    border-radius: 22px;
+  }
+
+  .terminal {
+    top: 65px;
+    height: 88px;
+  }
+
+  .terminalSign {
+    top: 30px;
+  }
+
+  .taxi {
+    right: 6%;
+    bottom: 30px;
+    transform: scale(.82);
+    transform-origin: right bottom;
+  }
+
+  .plane {
+    left: 25%;
+    top: 45px;
+    transform: scale(.82);
+  }
+
+  .routeBadge {
+    right: 15px;
+    top: 15px;
+    gap: 5px;
+    padding: 7px 9px;
+  }
+
+  .routeLine {
+    width: 18px;
+  }
+
+  .visualStat {
+    left: 15px;
+    bottom: 70px;
+    padding: 7px 9px;
+  }
+
+  .visualStat span {
+    font-size: 8px;
+  }
+
+  .bookingHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 21px;
+  }
+
+  .bookingHeader h2 {
+    font-size: 27px;
+  }
+
+  .bookingFooter {
+    gap: 12px;
+  }
+}

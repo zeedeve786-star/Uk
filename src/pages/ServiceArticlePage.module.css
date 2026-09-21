@@ -1,0 +1,15 @@
+.page { display: flex; flex-direction: column; }
+.notFound { max-width: 1200px; margin: 0 auto; padding: 48px 24px; color: var(--color-slate); }
+
+.article { max-width: 720px; margin: 0 auto; padding: 8px 24px 40px; display: flex; flex-direction: column; gap: 14px; }
+.status { font-size: 0.75rem; font-weight: 600; color: var(--color-brass); margin: 0; }
+.title { font-family: var(--font-display); font-size: 1.75rem; color: var(--color-ink); margin: 0; }
+.body { font-family: var(--font-body); font-size: 0.9375rem; color: var(--color-ink-soft); line-height: 1.6; margin: 0; }
+
+.ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.primaryCta, .secondaryCta { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; text-decoration: none; padding: 9px 16px; border-radius: 6px; }
+.primaryCta { background: var(--color-ink); color: var(--color-paper); }
+.primaryCta:hover { background: var(--color-ink-soft); }
+.secondaryCta { border: 1px solid var(--color-line); color: var(--color-ink); }
+.secondaryCta:hover { border-color: var(--color-brass); color: var(--color-brass); }
+.primaryCta:focus-visible, .secondaryCta:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }

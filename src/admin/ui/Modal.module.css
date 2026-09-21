@@ -1,0 +1,6 @@
+.overlay { position: fixed; inset: 0; background: rgba(16, 25, 43, 0.4); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
+.modal { background: var(--color-paper-raised); border-radius: 10px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--color-line); }
+.title { font-family: var(--font-display); font-size: 1.125rem; color: var(--color-ink); margin: 0; }
+.close { background: none; border: none; font-size: 1.5rem; line-height: 1; cursor: pointer; color: var(--color-slate); }
+.body { padding: 20px; }

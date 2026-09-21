@@ -1,0 +1,49 @@
+.widget {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: none;
+}
+
+.header {
+  display: none;
+}
+
+.contactLine {
+  display: none;
+}
+
+.formArea {
+  width: 100%;
+  background: #fff;
+}
+
+.stepTransition {
+  width: 100%;
+  animation: bookingAppear .2s ease-out;
+}
+
+@keyframes bookingAppear {
+  from {
+    opacity: .7;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stepStack {
+  width: 100%;
+  padding: 0;
+}
+
+@media (max-width: 700px) {
+  .widget {
+    border-radius: 0;
+  }
+}

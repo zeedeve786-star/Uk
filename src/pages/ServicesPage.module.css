@@ -1,0 +1,8 @@
+
+.page {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #f8f9fc 0%, #ffffff 18%, #f7f8fb 100%);
+}

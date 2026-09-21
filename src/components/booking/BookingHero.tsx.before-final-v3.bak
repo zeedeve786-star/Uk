@@ -1,0 +1,104 @@
+import { BookingWidget } from './BookingWidget';
+import styles from './BookingHero.module.css';
+
+export function BookingHero() {
+  return (
+    <section id="home" className={styles.hero} aria-label="Book your journey">
+      <div className={styles.heroBackground} aria-hidden="true">
+        <div className={styles.airportGlow} />
+        <div className={styles.airportStructure}>
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className={styles.flightPath}>
+          <i />
+          <b />
+          <i />
+        </div>
+      </div>
+
+      <div className={styles.heroInner}>
+        <div className={styles.leftColumn}>
+          <div className={styles.intro}>
+            <span className={styles.eyebrow}>
+              <i />
+              UK PRIVATE TRANSPORT
+            </span>
+
+            <h1>
+              Travel with
+              <span>confidence.</span>
+            </h1>
+
+            <p>
+              Professional private transfers for airports, railway stations,
+              cruises and events. Your journey, vehicle and fare are made
+              clear before you confirm.
+            </p>
+          </div>
+
+          <div className={styles.routeArtwork} aria-hidden="true">
+            <div className={styles.routeSky}>
+              <span className={styles.cloudOne} />
+              <span className={styles.cloudTwo} />
+            </div>
+
+            <div className={styles.routeRoad}>
+              <div className={styles.routeRoadLine} />
+            </div>
+
+            <div className={styles.airplane}>✦</div>
+
+            <div className={styles.carIllustration}>
+              <span className={styles.carRoof} />
+              <span className={styles.carBody} />
+              <i />
+              <i />
+            </div>
+
+            <div className={styles.routeLabel}>
+              <strong>YOUR JOURNEY</strong>
+              <span>From pickup to destination</span>
+            </div>
+          </div>
+
+          <div className={styles.leftPoints}>
+            <span><b>✓</b> Clear pricing</span>
+            <span><b>✓</b> Professional drivers</span>
+            <span><b>✓</b> Simple booking</span>
+          </div>
+        </div>
+
+        <div className={styles.rightColumn}>
+          <div className={styles.bookingPanel}>
+            <div className={styles.bookingHeader}>
+              <div>
+                <span>ONLINE BOOKING</span>
+                <h2>Book your journey</h2>
+                <p>Enter your journey details to get your quote.</p>
+              </div>
+
+              <div className={styles.online}>
+                <i />
+                ONLINE
+              </div>
+            </div>
+
+            <div className={styles.widgetArea}>
+              <BookingWidget />
+            </div>
+
+            <div className={styles.bookingFooter}>
+              <span>✓ Secure booking</span>
+              <span>✓ Clear fare</span>
+              <span>✓ Human support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

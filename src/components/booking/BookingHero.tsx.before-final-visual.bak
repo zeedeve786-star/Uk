@@ -1,0 +1,132 @@
+import { BookingWidget } from './BookingWidget';
+import styles from './BookingHero.module.css';
+
+export function BookingHero() {
+  return (
+    <section id="home" className={styles.hero} aria-label="Book your journey">
+      <div className={styles.heroBackdrop} aria-hidden="true">
+        <div className={styles.backdropTerminal} />
+        <div className={styles.backdropLight} />
+        <div className={styles.backdropRoad} />
+      </div>
+
+      <div className={styles.heroInner}>
+        <div className={styles.leftColumn}>
+          <div className={styles.intro}>
+            <span className={styles.eyebrow}>
+              <i />
+              UK PRIVATE TRANSPORT
+            </span>
+
+            <h1>
+              Travel with
+              <span>confidence.</span>
+            </h1>
+
+            <p>
+              Professional private transfers for airports, railway stations,
+              cruises and events. Your journey, vehicle and fare are made
+              clear before you confirm.
+            </p>
+          </div>
+
+          <div className={styles.mainIllustration} aria-hidden="true">
+            <div className={styles.illustrationSky}>
+              <span className={styles.cloudA} />
+              <span className={styles.cloudB} />
+              <span className={styles.sunGlow} />
+            </div>
+
+            <div className={styles.terminal}>
+              <div className={styles.terminalRoof} />
+              <div className={styles.terminalGlass}>
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className={styles.terminalSign}>AIRPORT</div>
+            </div>
+
+            <div className={styles.runway}>
+              <div className={styles.runwayCenter} />
+            </div>
+
+            <div className={styles.plane}>
+              <span>✦</span>
+            </div>
+
+            <div className={styles.taxi}>
+              <div className={styles.taxiRoof} />
+              <div className={styles.taxiBody}>
+                <span />
+              </div>
+              <i />
+              <i />
+            </div>
+
+            <div className={styles.illustrationCaption}>
+              <strong>FROM HERE TO THERE</strong>
+              <span>Airport transfers made simple</span>
+            </div>
+          </div>
+
+          <div className={styles.bottomHighlights}>
+            <div>
+              <b>✓</b>
+              <span>
+                <strong>Clear pricing</strong>
+                Know your fare before confirmation
+              </span>
+            </div>
+
+            <div>
+              <b>✓</b>
+              <span>
+                <strong>Professional service</strong>
+                Built around your journey
+              </span>
+            </div>
+
+            <div>
+              <b>✓</b>
+              <span>
+                <strong>Simple booking</strong>
+                One straightforward booking flow
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.rightColumn}>
+          <div className={styles.bookingPanel}>
+            <div className={styles.bookingHeader}>
+              <div>
+                <span>ONLINE BOOKING</span>
+                <h2>Book your journey</h2>
+                <p>Enter your journey details to get your quote.</p>
+              </div>
+
+              <div className={styles.online}>
+                <i />
+                ONLINE
+              </div>
+            </div>
+
+            <div className={styles.widgetArea}>
+              <BookingWidget />
+            </div>
+
+            <div className={styles.bookingFooter}>
+              <span>✓ Secure booking</span>
+              <span>✓ Clear fare</span>
+              <span>✓ Human support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
