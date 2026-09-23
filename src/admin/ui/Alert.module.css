@@ -1,0 +1,4 @@
+.alert { padding: 10px 14px; border-radius: 6px; font-family: var(--font-body); font-size: 0.875rem; border: 1px solid; }
+.info { background: var(--color-brass-soft); border-color: var(--color-brass); color: var(--color-ink); }
+.error { background: #fbe1df; border-color: #b3413a; color: #96352f; }
+.success { background: #dff3e3; border-color: #1e6b34; color: #1e6b34; }

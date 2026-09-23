@@ -1,0 +1,91 @@
+import { BookingWidget } from './BookingWidget';
+import styles from './BookingHero.module.css';
+
+export function BookingHero() {
+  return (
+    <section
+      id="home"
+      className={styles.hero}
+      aria-label="Book your journey"
+    >
+      <div className={styles.heroInner}>
+
+        <div className={styles.heroIntro}>
+          <div className={styles.introCopy}>
+            <span className={styles.eyebrow}>
+              <i />
+              UK PRIVATE TRANSPORT
+            </span>
+
+            <h1>
+              Book your
+              <span>airport transfer.</span>
+            </h1>
+
+            <p>
+              Enter your journey details below for a simple, clear booking
+              experience across airports, railway stations, cruises and events.
+            </p>
+          </div>
+
+          <div className={styles.introMeta}>
+            <span>Fixed &amp; transparent pricing</span>
+            <b />
+            <span>Professional private transfer</span>
+            <b />
+            <span>Secure online booking</span>
+          </div>
+        </div>
+
+        <div className={styles.bookingStage}>
+
+          <div className={styles.bookingStageTop}>
+            <div>
+              <span className={styles.bookingEyebrow}>
+                INSTANT ONLINE QUOTE
+              </span>
+
+              <h2>Book Your Journey</h2>
+
+              <p>
+                Tell us where you are travelling from and where you need to go.
+              </p>
+            </div>
+
+            <div className={styles.onlineBadge}>
+              <i />
+              <span>ONLINE</span>
+            </div>
+          </div>
+
+          <div className={styles.bookingSurface}>
+            <BookingWidget />
+          </div>
+
+          <div className={styles.bookingTrust}>
+            <div>
+              <span>✓</span>
+              <strong>Clear pricing</strong>
+            </div>
+
+            <div>
+              <span>✓</span>
+              <strong>Secure payment</strong>
+            </div>
+
+            <div>
+              <span>✓</span>
+              <strong>Human support</strong>
+            </div>
+
+            <div>
+              <span>✓</span>
+              <strong>Professional service</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}

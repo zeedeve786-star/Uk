@@ -1,0 +1,61 @@
+
+.hero {
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: 76px max(24px, calc((100vw - 1200px) / 2)) 70px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 20%, rgba(150, 130, 235, .17), transparent 29%),
+    radial-gradient(circle at 15% 90%, rgba(91, 142, 220, .10), transparent 32%),
+    linear-gradient(135deg, #f7f8fd 0%, #ffffff 55%, #f7f5fb 100%);
+  border-bottom: 1px solid rgba(82, 96, 145, .09);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  right: 8%;
+  bottom: -110px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(91, 105, 170, .10);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 34px rgba(91, 105, 170, .025),
+    0 0 0 68px rgba(91, 105, 170, .018);
+}
+
+.heading {
+  position: relative;
+  z-index: 1;
+  margin: 8px 0 15px;
+  max-width: 760px;
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 6vw, 5.2rem);
+  line-height: .96;
+  letter-spacing: -.055em;
+  color: var(--color-ink);
+}
+
+.heading::before {
+  content: "PRIVATE TRANSPORT";
+  display: block;
+  margin-bottom: 13px;
+  font-family: var(--font-body);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .17em;
+  color: #69749a;
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: #70798f;
+}

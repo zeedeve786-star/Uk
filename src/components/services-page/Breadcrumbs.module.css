@@ -1,0 +1,8 @@
+.nav { padding: 16px 24px; }
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; max-width: 1200px; margin: 0 auto; }
+.item { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-body); font-size: 0.8125rem; }
+.link { color: var(--color-slate); text-decoration: none; }
+.link:hover { color: var(--color-brass); }
+.link:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+.current { color: var(--color-ink); font-weight: 600; }
+.separator { color: var(--color-line); }

@@ -21,3 +21,25 @@
   cursor: pointer;
 }
 .retryButton:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }
+
+.cardElementWrapper {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 12px;
+  background: var(--color-paper-raised);
+}
+
+.payButton {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.payButton:disabled { background: var(--color-line); color: var(--color-slate); cursor: not-allowed; }
+.payButton:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 2px; }

@@ -1,33 +1,58 @@
+/* =========================
+   BOOKING WIDGET
+========================= */
+
 .widget {
-  background: var(--color-paper-raised);
-  border: 1px solid var(--color-line);
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 20px 40px rgba(16, 25, 43, 0.06);
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: none;
 }
 
-.stepStack { display: flex; flex-direction: column; gap: 20px; }
-
-.stepTransition { animation: step-in 0.28s ease; }
-
-@keyframes step-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+.header {
+  display: none;
 }
 
-@media (min-width: 1024px) {
-  .stepTransition { animation: step-in-desktop 0.32s ease; }
+.contactLine {
+  display: none;
 }
 
-@keyframes step-in-desktop {
-  from { opacity: 0; transform: perspective(800px) rotateX(2deg) translateY(6px); }
-  to { opacity: 1; transform: perspective(800px) rotateX(0) translateY(0); }
+.formArea {
+  width: 100%;
+  background: #fff;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .stepTransition { animation: none; }
+.stepTransition {
+  width: 100%;
+  animation: bookingAppear .2s ease-out;
 }
 
-@media (max-width: 640px) {
-  .widget { padding: 16px; border-radius: 10px; }
+@keyframes bookingAppear {
+  from {
+    opacity: .7;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stepStack {
+  width: 100%;
+  padding: 0;
+}
+
+.widgetFooter,
+.footerMessage {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .widget {
+    border-radius: 0;
+  }
 }

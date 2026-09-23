@@ -1,0 +1,445 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model HealthCheck {
+  id        Int      @id @default(autoincrement())
+  checkedAt DateTime @default(now())
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+model Discount {
+  id                   String       @id @default(cuid())
+  code                 String       @unique
+  active               Boolean      @default(true)
+  type                 DiscountType
+  value                Int
+  startsAt             DateTime?
+  endsAt               DateTime?
+  minimumFarePence     Int?
+  maximumDiscountPence Int?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+}
+
+enum VehicleCategory {
+  SALOON       @map("saloon")
+  ESTATE       @map("estate")
+  MPV          @map("mpv")
+  EXECUTIVE    @map("executive")
+  EIGHT_SEATER @map("eight-seater")
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Booking {
+  id               String @id @default(cuid())
+  bookingReference String @unique
+
+  pickup      String
+  destination String
+  extraStops  Json?
+  journeyDate DateTime @db.Date
+  journeyTime String
+
+  customerName  String
+  customerEmail String
+  customerPhone String
+
+  passengerCount  Int
+  vehicleCategory VehicleCategory
+
+  originalFarePence   Int
+  discountCode        String?
+  discountAmountPence Int     @default(0)
+  finalFarePence      Int
+  currency            String  @default("GBP")
+
+  paymentStatus PaymentStatus @default(PENDING)
+  bookingStatus BookingStatus @default(PENDING)
+
+  paymentTransactions PaymentTransaction[]
+  ride                Ride?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PaymentTransaction {
+  id                    String        @id @default(cuid())
+  bookingId             String
+  booking               Booking       @relation(fields: [bookingId], references: [id])
+  stripePaymentIntentId String        @unique
+  amountPence           Int
+  currency              String        @default("GBP")
+  status                PaymentStatus @default(PENDING)
+  stripeStatus          String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+}
+
+enum Role {
+  CUSTOMER
+  DRIVER
+  ADMIN
+}
+
+enum AdminPermission {
+  MANAGE_BOOKINGS
+  MANAGE_DISCOUNTS
+  VIEW_FARE_CONFIG
+  MANAGE_ADMINS
+  MANAGE_DRIVERS
+  MANAGE_RIDES
+  VIEW_AUDIT_LOG
+  MANAGE_CONTENT
+  MANAGE_SETTINGS
+  MANAGE_AVAILABILITY
+  VIEW_NOTIFICATIONS
+  MANAGE_DRIVER_PAYMENTS
+}
+
+enum DriverEarningRuleType {
+  NONE
+  FIXED
+  PERCENTAGE
+}
+
+model FareConfiguration {
+  id                    String @id @default(cuid())
+  currency              String @default("GBP")
+  baseFarePence         Int
+  perMilePence          Int
+  perExtraStopPence     Int
+  minimumFarePence      Int
+  saloonMultiplier      Float
+  estateMultiplier      Float
+  mpvMultiplier         Float
+  executiveMultiplier   Float
+  eightSeaterMultiplier Float
+
+  driverEarningRuleType   DriverEarningRuleType @default(NONE)
+  driverEarningValue      Float?
+  companyChargePence      Int?
+  companyChargePercentage Float?
+
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([active])
+}
+
+model User {
+  id           String @id @default(cuid())
+  email        String @unique
+  passwordHash String
+  role         Role   @default(CUSTOMER)
+
+  isMasterAdmin    Boolean           @default(false)
+  adminPermissions AdminPermission[] @default([])
+
+  driverProfile DriverProfile?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdminAuditLog {
+  id          String   @id @default(cuid())
+  actorUserId String
+  action      String
+  targetType  String
+  targetId    String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum ServiceContentType {
+  AIRPORT @map("airport")
+  RAILWAY @map("railway")
+  CRUISE  @map("cruise")
+  EVENT   @map("event")
+}
+
+model Blog {
+  id               String        @id @default(cuid())
+  title            String
+  slug             String        @unique
+  excerpt          String?
+  content          String
+  featuredImageUrl String?
+  category         String?
+  status           ContentStatus @default(DRAFT)
+  metaTitle        String?
+  metaDescription  String?
+  publishedAt      DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+// One generic model for Airport/Railway/Cruise/Event content — a type
+// discriminator, not four near-duplicate tables. eventType is meaningful
+// only when type = EVENT.
+model ServiceContent {
+  id               String             @id @default(cuid())
+  type             ServiceContentType
+  title            String
+  slug             String             @unique
+  description      String
+  eventType        String?
+  imageUrls        String[]           @default([])
+  videoUrls        String[]           @default([])
+  relatedBlogSlugs String[]           @default([])
+  status           ContentStatus      @default(DRAFT)
+  metaTitle        String?
+  metaDescription  String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+// One row per vehicle category — presentation content only, entirely
+// separate from Fare Engine pricing/multipliers.
+model VehicleContent {
+  id              String          @id @default(cuid())
+  vehicleCategory VehicleCategory @unique
+  title           String
+  description     String
+  imageUrls       String[]        @default([])
+  videoUrls       String[]        @default([])
+  active          Boolean         @default(true)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+// Singleton row (fixed id "singleton") — business/contact presentation info
+// only. No secrets belong here; this is public-readable content.
+model PlatformSettings {
+  id             String   @id
+  companyName    String?
+  phoneDisplay   String?
+  phoneTel       String?
+  whatsappNumber String?
+  contactEmail   String?
+  logoUrl        String?
+  tickerMessage  String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+// External URL registry only — no binary storage. Referenced by admins when
+// building imageUrls/videoUrls on content records; content tables store the
+// URL value directly, not a foreign key, so existing content keeps working
+// even if a library entry is later removed.
+model MediaAsset {
+  id        String    @id @default(cuid())
+  url       String
+  altText   String?
+  mediaType MediaType
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum ApiIntegrationStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model ApiIntegration {
+  id          String               @id @default(cuid())
+  name        String
+  provider    String
+  baseUrl     String
+  apiKey      String
+  description String?
+  status      ApiIntegrationStatus @default(ACTIVE)
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+}
+
+enum DriverStatus {
+  OFFLINE
+  AVAILABLE
+  ON_RIDE
+}
+
+model DriverProfile {
+  id              String           @id @default(cuid())
+  userId          String           @unique
+  user            User             @relation(fields: [userId], references: [id])
+  status          DriverStatus     @default(OFFLINE)
+  vehicleCategory VehicleCategory?
+  phone           String?
+  rides           Ride[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  DriverPayment DriverPayment[]
+}
+
+enum RideStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum DriverPaymentFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+enum DriverPaymentStatus {
+  PENDING
+  APPROVED
+  TRANSFER_INITIATED
+  PAID
+  FAILED
+  CANCELLED
+}
+
+enum DriverPaymentMethod {
+  BANK_TRANSFER
+  CASH
+  OTHER
+}
+
+enum DriverPaymentProvider {
+  INTERNAL
+  STRIPE_CONNECT
+  BANK_API
+  OTHER
+}
+
+model DriverPayment {
+  id                    String                 @id @default(cuid())
+  driverId              String
+  driver                DriverProfile          @relation(fields: [driverId], references: [id])
+  frequency             DriverPaymentFrequency
+  amountPence           Int
+  currency              String                 @default("GBP")
+  paymentDate           DateTime               @db.Date
+  status                DriverPaymentStatus    @default(PENDING)
+  paymentMethod         DriverPaymentMethod    @default(BANK_TRANSFER)
+  provider              DriverPaymentProvider  @default(INTERNAL)
+  paymentReference      String?
+  transferReference     String?
+  externalTransactionId String?
+  notes                 String?
+  payrollPeriodStart    DateTime?              @db.Date
+  payrollPeriodEnd      DateTime?              @db.Date
+  rideCount             Int                    @default(0)
+  createdByUserId       String?
+  approvedAt            DateTime?
+  transferredAt         DateTime?
+  paidAt                DateTime?
+  failedAt              DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  @@index([driverId, paymentDate])
+  @@index([status])
+  @@index([driverId, payrollPeriodStart, payrollPeriodEnd])
+  @@index([externalTransactionId])
+}
+
+model Ride {
+  id                  String         @id @default(cuid())
+  rideReference       String         @unique
+  bookingId           String         @unique
+  booking             Booking        @relation(fields: [bookingId], references: [id])
+  status              RideStatus     @default(SCHEDULED)
+  driverId            String?
+  driver              DriverProfile? @relation(fields: [driverId], references: [id])
+  operationalNotes    String?
+  driverEarningPence  Int?
+  driverEarningSource String?
+  driverEarningLocked Boolean        @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AvailabilityBlock {
+  id              String          @id @default(cuid())
+  vehicleCategory VehicleCategory
+  startsAt        DateTime
+  endsAt          DateTime
+  reason          String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([vehicleCategory, startsAt, endsAt])
+}
+
+// Admin-defined blackout windows for a vehicle category (maintenance,
+// holiday, capacity constraint, etc.) — real persisted data, not a
+// fabricated fleet-capacity model. Combined with a same-slot check against
+// existing Bookings, this is the full conflict-detection foundation
+// possible given the current schema has no journey-duration field.
+
+enum NotificationType {
+  BOOKING_CREATED
+  PAYMENT_SUCCEEDED
+  PAYMENT_FAILED
+  RIDE_STATUS_CHANGED
+  DRIVER_ASSIGNED
+}
+
+enum NotificationRecipientType {
+  CUSTOMER
+  DRIVER
+  ADMIN
+}
+
+// Internal notification log — persisted records of real platform events.
+// No external delivery provider is integrated anywhere in this project
+// (Settings' WhatsApp/email fields are display-only contact info), so this
+// is an in-platform feed, not a claim that an email/SMS/WhatsApp message
+// was sent. recipientUserId is used for DRIVER/ADMIN (real Users);
+// recipientContact (plain string) is used for CUSTOMER, since Booking has
+// no User relation.
+model Notification {
+  id               String                    @id @default(cuid())
+  type             NotificationType
+  recipientType    NotificationRecipientType
+  recipientUserId  String?
+  recipientContact String?
+  referenceType    String
+  referenceId      String
+  message          String
+  read             Boolean                   @default(false)
+  createdAt        DateTime                  @default(now())
+}

@@ -1,0 +1,8 @@
+.wrapper { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-family: var(--font-body); font-size: 0.875rem; }
+.table th {
+  text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-line);
+  color: var(--color-slate); font-weight: 600; font-size: 0.75rem; white-space: nowrap;
+}
+.table td { padding: 10px 12px; border-bottom: 1px solid var(--color-line); color: var(--color-ink); vertical-align: top; }
+.empty { padding: 24px; text-align: center; color: var(--color-slate); font-size: 0.875rem; }

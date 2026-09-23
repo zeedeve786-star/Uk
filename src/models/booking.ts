@@ -12,6 +12,7 @@ export interface JourneyDetails {
   referencePoint?: string;
   eventType?: string;
   groupNotes?: string;
+  distanceMiles: number;
 }
 
 export interface JourneyValidationErrors {
@@ -22,6 +23,7 @@ export interface JourneyValidationErrors {
   passengers?: string;
   referencePoint?: string;
   advanceNotice?: string;
+  distanceMiles?: string;
 }
 
 export type BookingStep = 'journey' | 'vehicle' | 'details' | 'review' | 'payment' | 'confirmation';
