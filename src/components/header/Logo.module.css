@@ -1,23 +1,5 @@
-.logoLink {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.logoImg {
-  height: 40px;
-  width: auto;
-}
-
-.logoMark {
-  width: 40px;
-  height: 40px;
-}
-
-@media (max-width: 640px) {
-  .logoImg,
-  .logoMark {
-    height: 34px;
-    width: 34px;
-  }
-}
+.logoLink { display:inline-flex; align-items:center; flex-shrink:0; padding:3px 0; transition:transform 180ms ease; }
+.logoLink:hover { transform:translateY(-1px); }
+.logoImg { height:46px; width:auto; object-fit:contain; }
+.logoMark { width:46px; height:46px; }
+@media(max-width:640px){.logoImg,.logoMark{height:38px;width:38px}}

@@ -1,22 +1,15 @@
-.nav { display: flex; }
-.list {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.link {
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--color-ink);
-  text-decoration: none;
-}
-.link:hover { color: var(--color-brass); }
-.link:focus-visible { outline: 2px solid var(--color-brass); outline-offset: 3px; border-radius: 2px; }
-
-@media (max-width: 1024px) {
-  .list { gap: 18px; }
-}
+.nav { display:flex; align-items:center; justify-content:center; }
+.list { display:flex; align-items:center; justify-content:center; gap:10px; list-style:none; margin:0; padding:0; }
+.link { display:inline-flex; align-items:center; justify-content:center; min-width:88px; min-height:36px; padding:0 15px; border:1px solid rgba(255,255,255,.3); border-radius:10px; font-family:var(--font-body); font-size:.75rem; font-weight:750; letter-spacing:.06em; color:#ffffff; text-decoration:none; background:rgba(255,255,255,.12); box-shadow:0 5px 14px rgba(5,30,42,.14),inset 0 1px 0 rgba(255,255,255,.18); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:all 220ms ease; }
+.link:hover { transform:translateY(-3px); color:#ffffff; box-shadow:0 9px 21px rgba(0,0,0,.22); }
+.link:focus-visible { outline:2px solid #e3c878; outline-offset:3px; }
+.list li:nth-child(1) .link { background:rgba(45,139,157,.72); border-color:rgba(132,211,220,.45); }
+.list li:nth-child(1) .link:hover { background:#2b8fa2; }
+.list li:nth-child(2) .link { background:rgba(169,132,65,.72); border-color:rgba(226,198,128,.48); }
+.list li:nth-child(2) .link:hover { background:#b48a43; }
+.list li:nth-child(3) .link { background:rgba(128,52,70,.72); border-color:rgba(220,155,171,.42); }
+.list li:nth-child(3) .link:hover { background:#8b3049; }
+.list li:nth-child(4) .link { background:rgba(55,91,120,.76); border-color:rgba(154,190,216,.42); }
+.list li:nth-child(4) .link:hover { background:#396b91; }
+@media(max-width:1024px){.list{gap:7px}.link{min-width:76px;padding:0 11px;font-size:.7rem}}
+@media(max-width:900px){.nav{display:none}}

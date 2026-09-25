@@ -970,3 +970,12 @@
     min-height: 190px;
   }
 }
+
+/* Compact booking card */
+.bookingPanel { width:min(100%,470px); max-width:470px; margin-left:auto; border-radius:16px; }
+.bookingFooter { display:none; }
+
+/* Remove duplicate outer booking heading */
+.bookingHeader { display:none; }
+.bookingPanel { width:min(100%,470px); max-width:470px; margin-left:auto; }
+.widgetArea { padding:0; }

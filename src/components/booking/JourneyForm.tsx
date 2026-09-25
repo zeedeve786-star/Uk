@@ -1,5 +1,9 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  getLocationSuggestions,
+  type LocationSuggestion,
+} from '../../services/locationService';
 import type { JourneyDetails, JourneyValidationErrors, ServiceType } from '../../models/booking';
 import { serviceContent } from '../../config/services';
 import { bookingRules } from '../../config/booking-rules';
@@ -68,6 +72,8 @@ export function JourneyForm({ initialValue, onSubmit }: JourneyFormProps) {
   );
   const [errors, setErrors] = useState<JourneyValidationErrors>({});
   const [viaInput, setViaInput] = useState('');
+const [pickupSuggestions, setPickupSuggestions] = useState<LocationSuggestion[]>([]);
+const [dropoffSuggestions, setDropoffSuggestions] = useState<LocationSuggestion[]>([]);
 
   const activeService =
     serviceContent.find((s) => s.id === journey.serviceType) ??
@@ -88,6 +94,23 @@ export function JourneyForm({ initialValue, onSubmit }: JourneyFormProps) {
     }));
     setErrors({});
   }
+  useEffect(() => {
+  const timer = setTimeout(async () => {
+    const results = await getLocationSuggestions(journey.pickup);
+    setPickupSuggestions(results);
+  }, 300);
+
+  return () => clearTimeout(timer);
+}, [journey.pickup]);
+
+useEffect(() => {
+  const timer = setTimeout(async () => {
+    const results = await getLocationSuggestions(journey.dropoff);
+    setDropoffSuggestions(results);
+  }, 300);
+
+  return () => clearTimeout(timer);
+}, [journey.dropoff]);
 
   function addViaStop() {
     if (!viaInput.trim()) return;

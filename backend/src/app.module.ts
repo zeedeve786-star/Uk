@@ -30,6 +30,7 @@ import { RideModule } from './ride/ride.module';
 import { AvailabilityModule } from './availability/availability.module';
 import { NotificationModule } from './notification/notification.module';
 import { DriverPaymentModule } from './driver-payment/driver-payment.module';
+import { LocationModule } from './location/location.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { DriverPaymentModule } from './driver-payment/driver-payment.module';
     AvailabilityModule,
     NotificationModule,
     DriverPaymentModule,
+    LocationModule,
   ],
 })
 export class AppModule {}

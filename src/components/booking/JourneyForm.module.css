@@ -559,3 +559,30 @@
     row-gap: 16px;
   }
 }
+.autocompleteList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid #dce2ea;
+  border-radius: 11px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.autocompleteItem {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1f2b40;
+}
+
+.autocompleteItem:hover {
+  background: #f5f8fc;
+}

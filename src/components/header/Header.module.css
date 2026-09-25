@@ -1,71 +1,22 @@
-.header {
-  background: var(--color-paper);
-  border-bottom: 1px solid var(--color-line);
-  position: relative;
-  z-index: var(--z-header);
-}
-
-.inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
-
-.name {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: var(--color-ink);
-  line-height: 1.1;
-}
-
-.phone {
-  font-size: 0.8125rem;
-}
-
-.menuButton {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--color-ink);
-  padding: 6px;
-  cursor: pointer;
-}
-
-.menuButton:focus-visible {
-  outline: 2px solid var(--color-brass);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-@media (max-width: 1024px) and (min-width: 861px) {
-  .inner {
-    padding: 16px 20px;
-  }
-}
-
-@media (max-width: 860px) {
-  .right > nav,
-  .right > a,
-  .name {
-    display: none;
-  }
-
-  .menuButton {
-    display: inline-flex;
-  }
-
-  .inner {
-    padding: 14px 16px;
-  }
-}
+.header { position:relative; z-index:var(--z-header); overflow:hidden; background:linear-gradient(115deg,#102f3f 0%,#17485b 42%,#dce7ea 100%); border-bottom:1px solid rgba(255,255,255,.2); box-shadow:0 12px 34px rgba(9,35,47,.22); }
+.header::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(8,36,50,.5),transparent 42%,rgba(255,255,255,.18)); pointer-events:none; }
+.header::after { content:"LONDON  •  AIRPORT TRANSFERS  •  UK"; position:absolute; right:-20px; bottom:4px; font-size:7px; letter-spacing:.35em; font-weight:700; color:rgba(255,255,255,.13); pointer-events:none; }
+.inner { position:relative; max-width:1440px; min-height:164px; margin:0 auto; padding:15px 34px 13px; display:grid; grid-template-columns:1fr minmax(500px,1.25fr) 1fr; grid-template-rows:auto auto auto; align-items:center; column-gap:32px; row-gap:2px; }
+.brand { grid-column:1; grid-row:1 / span 3; display:flex; align-items:center; justify-content:flex-start; min-width:0; }
+.brand :global(a) { filter:drop-shadow(0 5px 10px rgba(0,0,0,.18)); }
+.centerArea { grid-column:2; grid-row:1 / span 3; display:grid; grid-template-columns:1fr; grid-template-rows:auto auto auto; justify-items:center; align-items:center; gap:3px; min-width:0; }
+.companyName { color:#ffffff; font-family:var(--font-display); font-size:1.65rem; font-weight:800; line-height:1.05; letter-spacing:.025em; text-align:center; text-shadow:0 3px 12px rgba(0,0,0,.2); white-space:nowrap; }
+.tagline { color:rgba(255,255,255,.82); font-family:var(--font-body); font-size:.78rem; font-weight:550; letter-spacing:.14em; text-transform:uppercase; text-align:center; }
+.navigationShell { margin-top:9px; display:flex; align-items:center; justify-content:center; }
+.contactArea { grid-column:3; grid-row:1 / span 2; align-self:center; justify-self:end; display:flex; flex-direction:column; align-items:flex-end; gap:7px; min-width:max-content; }
+.email { display:inline-flex; align-items:center; gap:7px; min-height:32px; padding:0 10px; border-radius:999px; color:rgba(255,255,255,.9); font-size:.76rem; font-weight:600; text-decoration:none; transition:all 200ms ease; }
+.email svg { color:#d6b66c; }
+.email:hover { color:#ffffff; background:rgba(255,255,255,.12); transform:translateX(-2px); }
+.phone { display:inline-flex; align-items:center; gap:8px; min-height:43px; padding:0 17px; border:1px solid #d5b66e; border-radius:999px; background:linear-gradient(135deg,#f7efd9,#d6b66c); color:#173847; font-size:.8rem; font-weight:800; text-decoration:none; box-shadow:0 7px 20px rgba(0,0,0,.16); transition:all 220ms ease; }
+.phone:hover { color:#ffffff; background:linear-gradient(135deg,#7c2638,#b28a43); border-color:#e2c77f; box-shadow:0 10px 25px rgba(0,0,0,.25); transform:translateY(-2px); }
+.menuButton { display:none; align-items:center; justify-content:center; width:43px; height:43px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); border-radius:50%; color:#ffffff; padding:0; cursor:pointer; }
+.menuButton:hover { background:#d6b66c; color:#173847; }
+.menuButton:focus-visible { outline:2px solid #e4c979; outline-offset:3px; }
+@media(max-width:1180px){.inner{padding-left:22px;padding-right:22px;grid-template-columns:1fr minmax(430px,1.2fr) 1fr;column-gap:18px}.companyName{font-size:1.4rem}.email{font-size:.7rem}}
+@media(max-width:900px){.inner{min-height:78px;padding:10px 18px;display:flex;justify-content:space-between;align-items:center}.brand{display:flex}.centerArea,.contactArea{display:none}.menuButton{display:inline-flex}}
+@media(max-width:480px){.inner{min-height:68px;padding:9px 14px}.menuButton{width:40px;height:40px}}

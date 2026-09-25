@@ -1,4 +1,4 @@
-/* =========================
+﻿/* =========================
    BOOKING WIDGET
 ========================= */
 
@@ -6,53 +6,89 @@
   width: 100%;
   margin: 0;
   overflow: hidden;
-  border: 0;
-  border-radius: 0;
+  border: 1px solid #e3e9ee;
+  border-radius: 14px;
   background: #fff;
-  box-shadow: none;
+  box-shadow: 0 10px 28px rgba(18,57,92,.08);
 }
 
-.header {
-  display: none;
-}
+.header { display: none; }
+.contactLine { display: none; }
 
-.contactLine {
-  display: none;
-}
-
-.formArea {
-  width: 100%;
-  background: #fff;
-}
-
-.stepTransition {
-  width: 100%;
-  animation: bookingAppear .2s ease-out;
-}
+.formArea { width: 100%; background: #fff; }
+.stepTransition { width: 100%; animation: bookingAppear .2s ease-out; }
 
 @keyframes bookingAppear {
-  from {
-    opacity: .7;
-    transform: translateY(3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: .7; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.stepStack {
-  width: 100%;
-  padding: 0;
+.stepStack { width: 100%; padding: 0; }
+
+.stepNumberTop,
+.stepNumberBottom {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  padding: 6px 14px;
+  background: #f8fafb;
+  border-bottom: 1px solid #e7edf1;
+}
+
+.stepNumberBottom {
+  justify-content: center;
+  border-top: 1px solid #e7edf1;
+  border-bottom: 0;
+}
+
+.stepNumberTop span,
+.stepNumberBottom span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+  border-radius: 50%;
+  background: #174f70;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.stepNumberTop strong,
+.stepNumberBottom strong {
+  color: #173f59;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .09em;
 }
 
 .widgetFooter,
-.footerMessage {
-  display: none;
-}
+.footerMessage { display: none; }
 
 @media (max-width: 700px) {
   .widget {
-    border-radius: 0;
+    border-radius: 12px;
+  }
+  .stepNumberTop,
+.stepNumberBottom {
+    min-height: 32px;
+    padding: 5px 12px;
+  }
+  .stepNumberTop span,
+.stepNumberBottom span {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+    font-size: 9px;
+  }
+  .stepNumberTop strong,
+.stepNumberBottom strong {
+    font-size: 9px;
+    letter-spacing: .08em;
   }
 }
+

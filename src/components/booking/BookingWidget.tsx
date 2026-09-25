@@ -17,8 +17,11 @@ export function BookingWidget() {
   const { state, actions } = useBookingFlow();
   const stripePromise = useMemo(() => getStripe(), []);
 
+  const stepInfo = ({ journey: { number: '01', title: 'BOOK YOUR JOURNEY' }, vehicle: { number: '02', title: 'SELECT YOUR VEHICLE' }, details: { number: '03', title: 'YOUR DETAILS' }, payment: { number: '05', title: 'PAYMENT' }, review: { number: '04', title: 'REVIEW BOOKING' }, confirmation: { number: '06', title: 'CONFIRMATION' } } as const)[state.step];
+
   return (
     <div className={styles.widget}>
+      <div className={styles.stepNumberTop}><span>{stepInfo.number}</span><strong>{stepInfo.title}</strong></div>
       <header className={styles.header}>
         <div className={styles.headerGlow} />
 
@@ -127,8 +130,11 @@ export function BookingWidget() {
         </div>
       </main>
 
+      <div className={styles.stepNumberBottom}><span>{stepInfo.number}</span><strong>{stepInfo.title}</strong></div>
+
       <footer className={styles.widgetFooter}>
         <span className={styles.footerMessage}>✦ Your journey starts with a better ride.</span>
       </footer></div>
   );
 }
+
