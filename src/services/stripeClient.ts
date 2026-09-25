@@ -6,9 +6,10 @@ export function getStripe(): Promise<Stripe | null> {
   if (!stripePromise) {
     const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
     if (!publishableKey) {
-      throw new Error('VITE_STRIPE_PUBLISHABLE_KEY is not configured');
+      stripePromise = Promise.resolve(null);
+    } else {
+      stripePromise = loadStripe(publishableKey);
     }
-    stripePromise = loadStripe(publishableKey);
   }
   return stripePromise;
 }

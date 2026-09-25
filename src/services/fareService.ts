@@ -1,30 +1,60 @@
 import type { JourneyDetails } from '../models/booking';
 import type { FareResult, VehicleCategoryId } from '../models/vehicle';
+import { API_BASE_URL } from '../config/api';
+
+interface BackendFareResponse {
+  totalFare?: number;
+  totalFarePence?: number;
+  amount?: number;
+  currency?: string;
+  discountAmount?: number;
+  finalAmount?: number;
+}
 
 export async function getFareEstimate(
   journey: JourneyDetails,
   vehicleId: VehicleCategoryId,
 ): Promise<FareResult> {
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  const response = await fetch(`${API_BASE_URL}/fare/calculate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      distanceMiles: journey.distanceMiles,
+      vehicleCategory: vehicleId,
+      extraStopCount: journey.viaStops.length,
+    }),
+  });
 
-  const baseByVehicle: Record<VehicleCategoryId, number> = {
-    saloon: 45,
-    estate: 52,
-    mpv: 65,
-    executive: 85,
-    'eight-seater': 95,
-  };
+  if (!response.ok) {
+    throw new Error(`Fare calculation failed (${response.status})`);
+  }
 
-  const amount = baseByVehicle[vehicleId] + journey.viaStops.length * 8;
-  const isPromotional = journey.serviceType === 'airport';
-  const discountAmount = isPromotional ? Math.round(amount * 0.1) : undefined;
-  const finalAmount = discountAmount ? amount - discountAmount : amount;
+  const data = (await response.json()) as BackendFareResponse;
+
+  const amount =
+    typeof data.totalFare === 'number'
+      ? data.totalFare
+      : typeof data.amount === 'number'
+        ? data.amount
+        : typeof data.totalFarePence === 'number'
+          ? data.totalFarePence / 100
+          : null;
+
+  if (amount === null) {
+    throw new Error('Fare calculation returned no valid amount');
+  }
 
   return {
     amount,
     currency: 'GBP',
-    discountAmount,
-    finalAmount,
+    ...(typeof data.discountAmount === 'number'
+      ? { discountAmount: data.discountAmount }
+      : {}),
+    ...(typeof data.finalAmount === 'number'
+      ? { finalAmount: data.finalAmount }
+      : {}),
     source: 'fare-engine',
   };
 }

@@ -6,6 +6,7 @@ export interface VehicleCategory {
   description: string;
   passengerCapacity: number;
   luggageCapacity: number;
+  handCarryCapacity: number;
   imagePlaceholder: string;
 }
 

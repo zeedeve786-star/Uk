@@ -159,6 +159,29 @@ export function BookingDetailPage() {
         </dl>
       </Card>
 
+      <Card>
+        <dl className={styles.details}>
+          <div>
+            <dt>Driver</dt>
+            <dd>
+              {booking.ride?.driver
+                ? `${booking.ride.driver.name ?? booking.ride.driver.email} · ${booking.ride.driver.phone ?? 'No phone'}`
+                : 'Not assigned'}
+            </dd>
+          </div>
+
+          <div>
+            <dt>Ride status</dt>
+            <dd>{booking.ride?.status ?? 'Not created'}</dd>
+          </div>
+
+          <div>
+            <dt>Ride reference</dt>
+            <dd>{booking.ride?.rideReference ?? 'Not created'}</dd>
+          </div>
+        </dl>
+      </Card>
+
       <Card className={styles.statusCard}>
         <p className={styles.statusLabel}>Booking status</p>
 

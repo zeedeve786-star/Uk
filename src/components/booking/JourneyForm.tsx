@@ -23,6 +23,7 @@ const emptyJourney = (serviceType: ServiceType): JourneyDetails => ({
   time: '',
   passengers: 1,
   luggage: 0,
+  handCarry: 0,
   referencePoint: '',
   eventType: '',
   groupNotes: '',
@@ -414,6 +415,18 @@ useEffect(() => {
                   + Add
                 </button>
               </div>
+              <div>
+                <span className={styles.labelText}>Hand carry</span>
+                <input
+                  type="number"
+                  min={0}
+                  value={journey.handCarry}
+                  onChange={(e) =>
+                    updateField('handCarry', Number(e.target.value))
+                  }
+                />
+              </div>
+
 
               {journey.viaStops.length > 0 && (
                 <ul className={styles.viaList}>

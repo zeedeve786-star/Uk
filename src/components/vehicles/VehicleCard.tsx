@@ -21,6 +21,7 @@ export function VehicleCard({ option, selected, onSelect }: VehicleCardProps) {
         <dl className={styles.capacity}>
           <div><dt>Passengers</dt><dd>{category.passengerCapacity}</dd></div>
           <div><dt>Luggage</dt><dd>{category.luggageCapacity}</dd></div>
+          <div><dt>Hand carry</dt><dd>{category.handCarryCapacity}</dd></div>
         </dl>
 
         <div className={styles.fareRow}>

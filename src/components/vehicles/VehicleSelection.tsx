@@ -14,7 +14,7 @@ interface VehicleSelectionProps {
 
 export function VehicleSelection({ journey, onSelect, isProcessing }: VehicleSelectionProps) {
   const [options, setOptions] = useState<VehicleOption[]>(
-    vehicleCatalog.map((category) => ({ category, available: category.passengerCapacity >= journey.passengers })),
+    vehicleCatalog.map((category) => ({ category, available: category.passengerCapacity >= journey.passengers && category.luggageCapacity >= journey.luggage && category.handCarryCapacity >= journey.handCarry })),
   );
   const [selectedId, setSelectedId] = useState<VehicleCategoryId | null>(null);
 
@@ -24,7 +24,7 @@ export function VehicleSelection({ journey, onSelect, isProcessing }: VehicleSel
     async function loadFares() {
       const withFares = await Promise.all(
         vehicleCatalog.map(async (category) => {
-          const available = category.passengerCapacity >= journey.passengers;
+          const available = category.passengerCapacity >= journey.passengers && category.luggageCapacity >= journey.luggage && category.handCarryCapacity >= journey.handCarry;
           if (!available) return { category, available };
           const fare = await getFareEstimate(journey, category.id);
           return { category, available, fare };

@@ -14,6 +14,8 @@ export interface BookingResult {
   customerEmail: string;
   customerPhone: string;
   passengerCount: number;
+  luggageCount: number | null;
+  handCarryCount: number | null;
   vehicleCategory: VehicleCategoryId;
   pricing: {
     originalFare: number;

@@ -5,16 +5,18 @@ export const vehicleCatalog: VehicleCategory[] = [
     id: 'saloon',
     name: 'Saloon Car',
     description: 'Comfortable four-door car suited to individual and small journeys.',
-    passengerCapacity: 3,
+    passengerCapacity: 4,
     luggageCapacity: 2,
+    handCarryCapacity: 1,
     imagePlaceholder: 'Saloon car placeholder image',
   },
   {
     id: 'estate',
     name: 'Estate Car',
     description: 'Extra luggage space, ideal for airport runs with additional bags.',
-    passengerCapacity: 3,
-    luggageCapacity: 4,
+    passengerCapacity: 4,
+    luggageCapacity: 3,
+    handCarryCapacity: 2,
     imagePlaceholder: 'Estate car placeholder image',
   },
   {
@@ -23,6 +25,7 @@ export const vehicleCatalog: VehicleCategory[] = [
     description: 'Spacious people-carrier for small groups travelling together.',
     passengerCapacity: 5,
     luggageCapacity: 4,
+    handCarryCapacity: 2,
     imagePlaceholder: 'MPV placeholder image',
   },
   {
@@ -30,7 +33,8 @@ export const vehicleCatalog: VehicleCategory[] = [
     name: 'Executive Car',
     description: 'Premium vehicle for business travel and special occasions.',
     passengerCapacity: 3,
-    luggageCapacity: 3,
+    luggageCapacity: 2,
+    handCarryCapacity: 1,
     imagePlaceholder: 'Executive car placeholder image',
   },
   {
@@ -39,6 +43,7 @@ export const vehicleCatalog: VehicleCategory[] = [
     description: 'Larger vehicle for groups and events transport.',
     passengerCapacity: 8,
     luggageCapacity: 6,
+    handCarryCapacity: 4,
     imagePlaceholder: '8-seater placeholder image',
   },
 ];

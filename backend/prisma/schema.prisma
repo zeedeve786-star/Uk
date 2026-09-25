@@ -67,14 +67,30 @@ model Booking {
   customerEmail String
   customerPhone String
 
+  leadPassengerName  String?
+  leadPassengerEmail String?
+  leadPassengerPhone String?
+
   passengerCount  Int
+  luggageCount    Int?
+  handCarryCount   Int?
+  luggageNotes    String?
+  customerNotes   String?
+
   vehicleCategory VehicleCategory
 
   originalFarePence   Int
   discountCode        String?
   discountAmountPence Int     @default(0)
   finalFarePence      Int
+  paidAmountPence     Int     @default(0)
   currency            String  @default("GBP")
+
+  validationStatus String @default("PENDING")
+  partnerBookingReference String?
+
+  estimatedDistanceMiles Float?
+  realDistanceMiles      Float?
 
   paymentStatus PaymentStatus @default(PENDING)
   bookingStatus BookingStatus @default(PENDING)
@@ -299,6 +315,7 @@ model DriverProfile {
   userId          String           @unique
   user            User             @relation(fields: [userId], references: [id])
   status          DriverStatus     @default(OFFLINE)
+  name            String?
   vehicleCategory VehicleCategory?
   phone           String?
   rides           Ride[]
@@ -384,6 +401,8 @@ model Ride {
   driverId            String?
   driver              DriverProfile? @relation(fields: [driverId], references: [id])
   operationalNotes    String?
+  driverNotes         String?
+  realDistanceMiles   Float?
   driverEarningPence  Int?
   driverEarningSource String?
   driverEarningLocked Boolean        @default(false)

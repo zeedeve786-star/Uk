@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import type { VehicleCategoryId } from '../models/vehicle';
+import { vehicleCatalog } from '../config/vehicles';
 import { API_BASE_URL } from '../config/api';
 
 type VehicleContent = {
@@ -13,13 +14,25 @@ type VehicleContent = {
   active: boolean;
 };
 
-const definitions: Record<VehicleCategoryId, { name: string; passengers: string; luggage: string }> = {
-  saloon: { name: 'Saloon', passengers: 'Up to 3 passengers', luggage: 'Up to 2 suitcases' },
-  estate: { name: 'Estate', passengers: 'Up to 3 passengers', luggage: 'Up to 4 suitcases' },
-  mpv: { name: 'MPV', passengers: 'Up to 5 passengers', luggage: 'Up to 4 suitcases' },
-  executive: { name: 'Executive', passengers: 'Up to 3 passengers', luggage: 'Up to 3 suitcases' },
-  'eight-seater': { name: '8-Seater', passengers: 'Up to 8 passengers', luggage: 'Up to 6 suitcases' },
-};
+const definitions = Object.fromEntries(
+  vehicleCatalog.map((vehicle) => [
+    vehicle.id,
+    {
+      name: vehicle.name.replace(' Car', ''),
+      passengers: `Up to ${vehicle.passengerCapacity} passengers`,
+      luggage: `Up to ${vehicle.luggageCapacity} suitcases`,
+      handCarry: `Up to ${vehicle.handCarryCapacity} hand-carry items`,
+    },
+  ]),
+) as Record<
+  VehicleCategoryId,
+  {
+    name: string;
+    passengers: string;
+    luggage: string;
+    handCarry: string;
+  }
+>;
 
 export function VehicleDetailPage() {
   const { category } = useParams<{ category: string }>();
@@ -150,6 +163,13 @@ export function VehicleDetailPage() {
                 <small style={{ color: '#8b94aa' }}>LUGGAGE</small>
                 <strong style={{ display: 'block', marginTop: 5, color: '#303a57' }}>
                   {definition.luggage}
+                </strong>
+              </div>
+
+              <div style={{ padding: 16, borderRadius: 14, background: '#f5f7fd' }}>
+                <small style={{ color: '#8b94aa' }}>HAND CARRY</small>
+                <strong style={{ display: 'block', marginTop: 5, color: '#303a57' }}>
+                  {definition.handCarry}
                 </strong>
               </div>
             </div>

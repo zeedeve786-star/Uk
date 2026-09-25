@@ -9,6 +9,7 @@ export interface JourneyDetails {
   time: string;
   passengers: number;
   luggage: number;
+  handCarry: number;
   referencePoint?: string;
   eventType?: string;
   groupNotes?: string;

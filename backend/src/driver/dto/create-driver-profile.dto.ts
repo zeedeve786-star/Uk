@@ -12,5 +12,10 @@ export class CreateDriverProfileDto {
 
   @IsOptional()
   @IsString()
+  @MinLength(1)
+  name?: string;
+
+  @IsOptional()
+  @IsString()
   phone?: string;
 }

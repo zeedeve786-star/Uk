@@ -26,6 +26,7 @@ function toResult(profile: any): DriverProfileResult {
   return {
     id: profile.id,
     userId: profile.userId,
+    name: profile.name,
     email: profile.user.email,
     status: profile.status,
     vehicleCategory: profile.vehicleCategory
@@ -58,6 +59,7 @@ export class DriverService {
     const profile = await this.prisma.driverProfile.create({
       data: {
         userId: dto.userId,
+        name: dto.name,
         vehicleCategory: dto.vehicleCategory ? vehicleCategoryToPrismaEnum[dto.vehicleCategory] : undefined,
         phone: dto.phone,
       },
@@ -112,6 +114,7 @@ export class DriverService {
       where: { id },
       data: {
         ...(dto.vehicleCategory !== undefined ? { vehicleCategory: vehicleCategoryToPrismaEnum[dto.vehicleCategory] } : {}),
+        ...(dto.name !== undefined ? { name: dto.name } : {}),
         ...(dto.phone !== undefined ? { phone: dto.phone } : {}),
       },
       include: { user: true },

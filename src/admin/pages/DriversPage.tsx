@@ -30,12 +30,12 @@ export function DriversPage() {
   const { data: users } = useAsyncData(() => usersApi.list(), []);
 
   const [creatingFor, setCreatingFor] = useState<AdminUserRow | null>(null);
-  const [createForm, setCreateForm] = useState<{ vehicleCategory: VehicleCategoryId | ''; phone: string }>({ vehicleCategory: '', phone: '' });
+  const [createForm, setCreateForm] = useState<{ name: string; vehicleCategory: VehicleCategoryId | ''; phone: string }>({ name: '', vehicleCategory: '', phone: '' });
   const [createError, setCreateError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
 
   const [editingProfile, setEditingProfile] = useState<DriverProfileRow | null>(null);
-  const [editForm, setEditForm] = useState<{ vehicleCategory: VehicleCategoryId | ''; phone: string }>({ vehicleCategory: '', phone: '' });
+  const [editForm, setEditForm] = useState<{ name: string; vehicleCategory: VehicleCategoryId | ''; phone: string }>({ name: '', vehicleCategory: '', phone: '' });
   const [editSubmitting, setEditSubmitting] = useState(false);
 
   if (status === 'loading') return <p>Loading…</p>;
@@ -48,7 +48,7 @@ export function DriversPage() {
 
   function openCreate(user: AdminUserRow) {
     setCreatingFor(user);
-    setCreateForm({ vehicleCategory: '', phone: '' });
+    setCreateForm({ name: '', vehicleCategory: '', phone: '' });
     setCreateError(null);
   }
 
@@ -60,6 +60,7 @@ export function DriversPage() {
     try {
       const created = await driversApi.create({
         userId: creatingFor.id,
+        name: createForm.name || undefined,
         vehicleCategory: createForm.vehicleCategory || undefined,
         phone: createForm.phone || undefined,
       });
@@ -81,7 +82,7 @@ export function DriversPage() {
 
   function openEdit(profile: DriverProfileRow) {
     setEditingProfile(profile);
-    setEditForm({ vehicleCategory: profile.vehicleCategory ?? '', phone: profile.phone ?? '' });
+    setEditForm({ name: profile.name ?? '', vehicleCategory: profile.vehicleCategory ?? '', phone: profile.phone ?? '' });
   }
 
   async function handleEditSubmit(e: React.FormEvent) {
@@ -109,7 +110,7 @@ export function DriversPage() {
         rowKey={(p) => p.id}
         emptyMessage="No driver profiles yet."
         columns={[
-          { key: 'email', header: 'Driver', render: (p) => p.email },
+          { key: 'name', header: 'Driver', render: (p) => p.name || p.email },
           { key: 'vehicle', header: 'Vehicle category', render: (p) => p.vehicleCategory ?? '—' },
           { key: 'phone', header: 'Phone', render: (p) => p.phone ?? '—' },
           { key: 'status', header: 'Status', render: (p) => <Badge tone={statusTone(p.status)}>{p.status}</Badge> },
@@ -144,6 +145,9 @@ export function DriversPage() {
         <Modal title={`Create driver profile — ${creatingFor.email}`} onClose={() => setCreatingFor(null)}>
           <form onSubmit={handleCreate} className={styles.form}>
             {createError && <Alert tone="error">{createError}</Alert>}
+            <Field label="Driver name">
+              <Input value={createForm.name} onChange={(e) => setCreateForm({ ...createForm, name: e.target.value })} />
+            </Field>
             <Field label="Vehicle category (optional)">
               <Select value={createForm.vehicleCategory} onChange={(e) => setCreateForm({ ...createForm, vehicleCategory: e.target.value as VehicleCategoryId })}>
                 <option value="">Not set</option>
@@ -161,6 +165,9 @@ export function DriversPage() {
       {editingProfile && (
         <Modal title={`Edit — ${editingProfile.email}`} onClose={() => setEditingProfile(null)}>
           <form onSubmit={handleEditSubmit} className={styles.form}>
+            <Field label="Driver name">
+              <Input value={editForm.name} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })} />
+            </Field>
             <Field label="Vehicle category">
               <Select value={editForm.vehicleCategory} onChange={(e) => setEditForm({ ...editForm, vehicleCategory: e.target.value as VehicleCategoryId })}>
                 <option value="">Not set</option>

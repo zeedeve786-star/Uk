@@ -2,16 +2,29 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { BookingStatus, NotificationRecipientType, NotificationType, Prisma, VehicleCategory as PrismaVehicleCategory } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { FareService } from '../fare/fare.service';
+import { AvailabilityService } from '../availability/availability.service';
 import { DiscountService } from '../discount/discount.service';
 import { NotificationService } from '../notification/notification.service';
 import { VehicleCategoryId } from '../fare/dto/calculate-fare.dto';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { BookingResult } from './models/booking-result';
 import { generateBookingReference } from './booking-reference.util';
-import { RideStatus, DriverStatus } from '@prisma/client';
 
 const MAX_REFERENCE_ATTEMPTS = 5;
 const MINIMUM_ADVANCE_HOURS = 4;
+
+
+const VEHICLE_CAPACITY: Record<VehicleCategoryId, {
+  passengers: number;
+  suitcases: number;
+  handCarry: number;
+}> = {
+  [VehicleCategoryId.SALOON]: { passengers: 4, suitcases: 2, handCarry: 1 },
+  [VehicleCategoryId.ESTATE]: { passengers: 4, suitcases: 3, handCarry: 2 },
+  [VehicleCategoryId.MPV]: { passengers: 5, suitcases: 4, handCarry: 2 },
+  [VehicleCategoryId.EXECUTIVE]: { passengers: 3, suitcases: 2, handCarry: 1 },
+  [VehicleCategoryId.EIGHT_SEATER]: { passengers: 8, suitcases: 6, handCarry: 4 },
+};
 
 const vehicleCategoryToPrismaEnum: Record<VehicleCategoryId, PrismaVehicleCategory> = {
   [VehicleCategoryId.SALOON]: PrismaVehicleCategory.SALOON,
@@ -34,12 +47,36 @@ export class BookingService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly fareService: FareService,
+    private readonly availabilityService: AvailabilityService,
     private readonly discountService: DiscountService,
     private readonly notificationService: NotificationService,
   ) {}
 
   async createBooking(dto: CreateBookingDto): Promise<BookingResult> {
     const extraStops = dto.extraStops ?? [];
+
+    const capacity = VEHICLE_CAPACITY[dto.vehicleCategory];
+    const suitcases = dto.luggageCount ?? 0;
+    const handCarry = dto.handCarryCount ?? 0;
+
+    if (dto.passengerCount > capacity.passengers) {
+      throw new BadRequestException(
+        `${dto.vehicleCategory} supports a maximum of ${capacity.passengers} passengers`,
+      );
+    }
+
+    if (suitcases > capacity.suitcases) {
+      throw new BadRequestException(
+        `${dto.vehicleCategory} supports a maximum of ${capacity.suitcases} suitcases`,
+      );
+    }
+
+    if (handCarry > capacity.handCarry) {
+      throw new BadRequestException(
+        `${dto.vehicleCategory} supports a maximum of ${capacity.handCarry} hand-carry items`,
+      );
+    }
+
 
     const journeyAt = new Date(`${dto.journeyDate}T${dto.journeyTime}:00.000Z`);
     if (Number.isNaN(journeyAt.getTime())) {
@@ -77,6 +114,29 @@ export class BookingService {
       appliedDiscountCode = discountResult.discountCode;
     }
 
+    const requestedDateTime = new Date(
+      `${dto.journeyDate}T${dto.journeyTime}:00.000Z`,
+    );
+    const minimumBookingTime = new Date(Date.now() + 4 * 60 * 60 * 1000);
+
+    if (requestedDateTime < minimumBookingTime) {
+      throw new BadRequestException(
+        'Bookings must be made at least 4 hours before the journey time',
+      );
+    }
+
+    const availability = await this.availabilityService.checkAvailability({
+      date: dto.journeyDate,
+      time: dto.journeyTime,
+      vehicleCategory: dto.vehicleCategory,
+    });
+
+    if (!availability.available) {
+      throw new BadRequestException(
+        'The selected vehicle is not available for this journey time',
+      );
+    }
+
     const record = await this.createWithUniqueReference({
       pickup: dto.pickup,
       destination: dto.destination,
@@ -86,8 +146,16 @@ export class BookingService {
       customerName: dto.customerName,
       customerEmail: dto.customerEmail,
       customerPhone: dto.customerPhone,
+      leadPassengerName: dto.leadPassengerName,
+      leadPassengerEmail: dto.leadPassengerEmail,
+      leadPassengerPhone: dto.leadPassengerPhone,
       passengerCount: dto.passengerCount,
+      luggageCount: dto.luggageCount,
+      handCarryCount: dto.handCarryCount,
+      luggageNotes: dto.luggageNotes,
+      customerNotes: dto.customerNotes,
       vehicleCategory: vehicleCategoryToPrismaEnum[dto.vehicleCategory],
+      estimatedDistanceMiles: dto.distanceMiles,
       originalFarePence,
       discountCode: appliedDiscountCode,
       discountAmountPence,
@@ -104,7 +172,6 @@ export class BookingService {
       message: `Booking ${record.bookingReference} created: ${record.pickup} → ${record.destination} on ${dto.journeyDate} at ${record.journeyTime}.`,
     });
 
-    await this.createRideForBooking(record.id);
 
     return {
       bookingReference: record.bookingReference,
@@ -117,6 +184,8 @@ export class BookingService {
       customerEmail: record.customerEmail,
       customerPhone: record.customerPhone,
       passengerCount: record.passengerCount,
+      luggageCount: record.luggageCount,
+      handCarryCount: record.handCarryCount,
       vehicleCategory: dto.vehicleCategory,
       pricing: {
         originalFare: toPounds(record.originalFarePence),
@@ -129,77 +198,6 @@ export class BookingService {
       bookingStatus: record.bookingStatus,
       createdAt: record.createdAt.toISOString(),
     };
-  }
-
-  private async createRideForBooking(bookingId: string): Promise<void> {
-    const existingRide = await this.prisma.ride.findUnique({
-      where: { bookingId },
-    });
-
-    if (existingRide) {
-      return;
-    }
-
-    const booking = await this.prisma.booking.findUnique({
-      where: { id: bookingId },
-    });
-
-    if (!booking) {
-      return;
-    }
-
-    const driver = await this.prisma.driverProfile.findFirst({
-      where: {
-        status: DriverStatus.AVAILABLE,
-        vehicleCategory: booking.vehicleCategory,
-      },
-      orderBy: {
-        updatedAt: 'asc',
-      },
-    });
-
-    const rideReference = `RD-${Date.now().toString(16).toUpperCase()}-${Math.random()
-      .toString(16)
-      .slice(2, 8)
-      .toUpperCase()}`;
-
-    const earningConfig = await this.fareService.calculateDriverEarning(
-      booking.finalFarePence,
-    );
-
-    await this.prisma.$transaction(async (tx) => {
-      const ride = await tx.ride.create({
-        data: {
-          bookingId: booking.id,
-          rideReference,
-          status: RideStatus.SCHEDULED,
-          driverId: driver?.id ?? null,
-          driverEarningPence: driver ? earningConfig.driverEarningPence : null,
-          driverEarningSource: driver ? earningConfig.source : null,
-          driverEarningLocked: false,
-        },
-      });
-
-      if (driver) {
-        await tx.driverProfile.update({
-          where: { id: driver.id },
-          data: { status: DriverStatus.ON_RIDE },
-        });
-      }
-
-      return ride;
-    });
-
-    if (driver) {
-      await this.notificationService.notify({
-        type: NotificationType.DRIVER_ASSIGNED,
-        recipientType: NotificationRecipientType.DRIVER,
-        recipientUserId: driver.userId,
-        referenceType: 'Ride',
-        referenceId: rideReference,
-        message: `You have been assigned to ride ${rideReference} (booking ${booking.bookingReference}).`,
-      });
-    }
   }
 
   private async createWithUniqueReference(
@@ -225,10 +223,21 @@ export class BookingService {
   }
 
   async getBookingByReference(bookingReference: string) {
-    const booking = await this.prisma.booking.findUnique({ where: { bookingReference } });
+    const booking = await this.prisma.booking.findUnique({
+      where: { bookingReference },
+      include: {
+        ride: {
+          include: {
+            driver: true,
+          },
+        },
+      },
+    });
+
     if (!booking) {
       throw new NotFoundException('Booking not found');
     }
+
     return booking;
   }
 

@@ -12,6 +12,7 @@ import { STRIPE_CLIENT } from './stripe-client.provider';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PaymentResult } from './models/payment-result';
 import { NotificationService } from '../notification/notification.service';
+import { RideService } from '../ride/ride.service';
 
 function toPounds(pence: number): number {
   return Math.round(pence) / 100;
@@ -23,6 +24,7 @@ export class PaymentService {
     private readonly prisma: PrismaService,
     @Inject(STRIPE_CLIENT) private readonly stripe: Stripe,
     private readonly notificationService: NotificationService,
+    private readonly rideService: RideService,
   ) {}
 
   async createPayment(dto: CreatePaymentDto): Promise<PaymentResult> {
@@ -108,8 +110,22 @@ export class PaymentService {
     });
     const updatedBooking = await this.prisma.booking.update({
       where: { id: transaction.bookingId },
-      data: { paymentStatus: status },
+      data: {
+        paymentStatus: status,
+        ...(status === PaymentStatus.PAID
+          ? {
+              bookingStatus: 'CONFIRMED',
+              paidAmountPence: transaction.amountPence,
+            }
+          : {}),
+      },
     });
+
+    if (status === PaymentStatus.PAID) {
+      await this.rideService.createFromBooking({
+        bookingReference: updatedBooking.bookingReference,
+      });
+    }
 
     await this.notificationService.notify({
       type: status === PaymentStatus.PAID ? NotificationType.PAYMENT_SUCCEEDED : NotificationType.PAYMENT_FAILED,

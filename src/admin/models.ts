@@ -39,15 +39,34 @@ export interface AdminBookingRow {
   customerName: string;
   customerEmail: string;
   customerPhone: string;
+  leadPassengerName: string | null;
+  leadPassengerEmail: string | null;
+  leadPassengerPhone: string | null;
   passengerCount: number;
+  luggageCount: number | null;
+  handCarryCount: number | null;
+  luggageNotes: string | null;
+  customerNotes: string | null;
   vehicleCategory: string;
   originalFarePence: number;
   discountCode: string | null;
+  discountAmountPence: number;
   finalFarePence: number;
+  paidAmountPence: number;
   currency: string;
+  validationStatus: string;
+  partnerBookingReference: string | null;
+  estimatedDistanceMiles: number | null;
+  realDistanceMiles: number | null;
   paymentStatus: 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED';
   bookingStatus: 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
   createdAt: string;
+  updatedAt: string;
+  ride: {
+    rideReference: string;
+    status: RideStatus;
+    driver: DriverProfileRow | null;
+  } | null;
 }
 
 export interface AdminDiscountRow {
@@ -188,6 +207,7 @@ export type DriverStatus = 'OFFLINE' | 'AVAILABLE' | 'ON_RIDE';
 export interface AdminDriverRow {
   id: string;
   userId: string;
+  name: string | null;
   email: string;
   status: DriverStatus;
   vehicleCategory: VehicleCategoryId | null;
@@ -203,6 +223,7 @@ export interface RideRow {
   status: RideStatus;
   driverId: string | null;
   operationalNotes: string | null;
+  driver: DriverProfileRow | null;
   createdAt: string;
   booking: {
     bookingReference: string;
@@ -245,6 +266,7 @@ export interface AvailabilityCheckResult {
 export interface DriverProfileRow {
   id: string;
   userId: string;
+  name: string | null;
   email: string;
   status: DriverStatus;
   vehicleCategory: VehicleCategoryId | null;

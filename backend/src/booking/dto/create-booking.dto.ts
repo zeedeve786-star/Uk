@@ -48,10 +48,45 @@ export class CreateBookingDto {
   @Matches(PHONE_PATTERN, { message: 'customerPhone must be a valid phone number' })
   customerPhone!: string;
 
+  @IsOptional()
+  @IsString()
+  @MinLength(1)
+  leadPassengerName?: string;
+
+  @IsOptional()
+  @IsEmail()
+  leadPassengerEmail?: string;
+
+  @IsOptional()
+  @Matches(PHONE_PATTERN, {
+    message: 'leadPassengerPhone must be a valid phone number',
+  })
+  leadPassengerPhone?: string;
+
   @Type(() => Number)
   @IsInt()
   @Min(1)
   passengerCount!: number;
+
+  @Type(() => Number)
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  luggageCount?: number;
+
+  @Type(() => Number)
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  handCarryCount?: number;
+
+  @IsOptional()
+  @IsString()
+  luggageNotes?: string;
+
+  @IsOptional()
+  @IsString()
+  customerNotes?: string;
 
   @IsEnum(VehicleCategoryId)
   vehicleCategory!: VehicleCategoryId;

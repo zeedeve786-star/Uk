@@ -63,6 +63,10 @@ export class RideService {
       throw new BadRequestException('Cannot create a ride for a cancelled booking');
     }
 
+    if (booking.paymentStatus !== 'PAID') {
+      throw new BadRequestException('Cannot create a ride before payment is confirmed');
+    }
+
     const existingRide = await this.prisma.ride.findUnique({ where: { bookingId: booking.id } });
     if (existingRide) {
       throw new ConflictException('A ride already exists for this booking');

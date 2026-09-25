@@ -29,7 +29,12 @@ export async function createBookingRecord(
     customerName: customer.fullName,
     customerEmail: customer.email,
     customerPhone: customer.phone,
+    leadPassengerName: customer.leadPassengerName,
     passengerCount: customer.passengerCount,
+    luggageCount: journey.luggage,
+    handCarryCount: journey.handCarry,
+    luggageNotes: customer.luggageNotes,
+    customerNotes: customer.notes,
     vehicleCategory: vehicleId,
     distanceMiles: journey.distanceMiles,
   });
